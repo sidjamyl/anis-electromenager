@@ -15,7 +15,7 @@ export function generateUploadSignature() {
   const signature = cloudinary.utils.api_sign_request(
     {
       timestamp,
-      folder: 'darine_products', // Dossier dans Cloudinary
+      folder: 'aniss_electromenager',
     },
     process.env.CLOUDINARY_API_SECRET!
   );

@@ -25,8 +25,8 @@ export default function AboutPage() {
                 </h2>
                 <p style={{ color: '#383738' }}>
                   {locale === 'ar'
-                    ? 'نسعى لتقديم أفضل منتجات التغليف والمواد الغذائية بجودة عالية وأسعار تنافسية، مع خدمة توصيل سريعة وموثوقة في جميع أنحاء الجزائر.'
-                    : 'Nous nous efforçons de fournir les meilleurs produits d\'emballage et alimentaires de haute qualité à des prix compétitifs, avec un service de livraison rapide et fiable dans toute l\'Algérie.'}
+                    ? 'نسعى لتقديم أجهزة منزلية موثوقة بأسعار تنافسية وخدمة قريبة من عملائنا.'
+                    : 'Nous sélectionnons des appareils fiables, à prix juste, avec un accompagnement simple et proche de nos clients.'}
                 </p>
               </div>
 
@@ -51,8 +51,8 @@ export default function AboutPage() {
             </div>
 
             <div className="text-center p-6 rounded-lg" style={{ backgroundColor: 'var(--brand-pink)' }}>
-              <div className="text-4xl font-bold text-white mb-2">58</div>
-              <div className="text-white">{locale === 'ar' ? 'ولاية مُغطاة' : 'Wilayas couvertes'}</div>
+              <div className="text-4xl font-bold text-white mb-2">+</div>
+              <div className="text-white">{locale === 'ar' ? 'خدمة قريبة' : 'Service de proximité'}</div>
             </div>
           </div>
         </div>

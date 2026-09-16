@@ -32,8 +32,6 @@ CLOUDINARY_CLOUD_NAME="votre-cloud-name"
 CLOUDINARY_API_KEY="votre-api-key"
 CLOUDINARY_API_SECRET="votre-api-secret"
 
-# Elogistia API
-ELOGISTIA_API_KEY="your-elogistia-api-key"
 ```
 
 ⚠️ **IMPORTANT** : Ajoutez `.env` dans votre `.gitignore` pour ne pas publier vos secrets !
@@ -85,7 +83,7 @@ Exemple de fichier d'environnement (à partager avec l'équipe)
 - ✅ Affichage d'un aperçu
 
 ### Organisation dans Cloudinary :
-Toutes les images sont stockées dans le dossier `darine_products` sur votre compte Cloudinary.
+Toutes les images sont stockées dans le dossier `aniss_electromenager` sur votre compte Cloudinary.
 
 ## 🔒 Sécurité
 

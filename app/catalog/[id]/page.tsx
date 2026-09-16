@@ -26,7 +26,8 @@ interface Product {
     descriptionFr: string;
     descriptionAr: string;
     price: number;
-    type: 'FOOD' | 'PACKAGING';
+    type: string;
+    category?: { nameFr: string; nameAr?: string | null } | null;
     image: string;
     hasVariants: boolean;
     variants?: ProductVariant[];
@@ -114,7 +115,7 @@ export default function ProductPage() {
 
     const name = locale === 'ar' ? product.nameAr : product.nameFr;
     const description = locale === 'ar' ? product.descriptionAr : product.descriptionFr;
-    const typeLabel = product.type === 'FOOD' ? t.products.food : t.products.packaging;
+    const typeLabel = locale === 'ar' && product.category?.nameAr ? product.category.nameAr : product.category?.nameFr || 'Électroménager';
     const isNew = product.newUntil && new Date(product.newUntil) > new Date();
     const newLabel = locale === 'ar' ? 'جديد' : 'Nouveau';
 

@@ -13,7 +13,7 @@ Pour envoyer des emails de notification de commandes, vous devez configurer un c
 2. **Créer un mot de passe d'application**
    - Allez sur https://myaccount.google.com/apppasswords
    - Sélectionnez "Autre (nom personnalisé)"
-   - Entrez "Darine Emballage"
+   - Entrez "Aniss Électroménager"
    - Copiez le mot de passe généré (16 caractères)
 
 3. **Configurer les variables d'environnement**
@@ -22,6 +22,7 @@ Pour envoyer des emails de notification de commandes, vous devez configurer un c
    ```env
    EMAIL_USER=votre-email@gmail.com
    EMAIL_PASSWORD=xxxx xxxx xxxx xxxx  # Le mot de passe d'application (sans espaces)
+   ADMIN_EMAIL=adresse-qui-recoit-les-commandes@example.com
    ```
 
 4. **Redémarrer le serveur**
@@ -33,18 +34,16 @@ Pour envoyer des emails de notification de commandes, vous devez configurer un c
 
 Chaque fois qu'un client passe une commande :
 1. La commande est créée dans la base de données
-2. La commande est envoyée à eLogistia
-3. **Un email est automatiquement envoyé à `nj_sid@esi.dz`** avec :
+2. **Un email est automatiquement envoyé à `ADMIN_EMAIL`** avec :
    - Numéro de commande
    - Informations du client
    - Détails des produits
-   - Montants (sous-total, livraison, total)
-   - Numéro de tracking eLogistia
+   - Total de la commande
 
 ## 🎨 Template d'email
 
 L'email envoyé est au format HTML avec :
-- Design aux couleurs de la marque (#F8A6B0)
+- Design aux couleurs de la marque
 - Tableau détaillé des produits
 - Informations complètes du client
 - Résumé financier
@@ -104,4 +103,4 @@ const transporter = nodemailer.createTransport({
 
 - L'envoi d'email n'empêche pas la création de commande (même si l'email échoue)
 - Les erreurs d'email sont loggées dans la console
-- L'email est envoyé après la création dans eLogistia (ou même si eLogistia échoue)
+- La commande reste enregistrée localement, même si l’e-mail échoue.

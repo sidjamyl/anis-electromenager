@@ -6,8 +6,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Avenir Next", "Segoe UI", Arial, sans-serif;
+  --font-mono: ui-monospace, monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -80,7 +80,7 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --brand-pink: #D63384;
+  --brand-pink: #F59E0B;
 }
 
 .dark {
@@ -123,5 +123,6 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: "Avenir Next", "Segoe UI", Arial, sans-serif;
   }
 }

@@ -128,7 +128,7 @@ export default function ContactPage() {
                   <h3 className="font-semibold mb-1" style={{ color: '#383738' }}>
                     {t.contact.phone}
                   </h3>
-                  <p className="text-gray-600">+213 540153721</p>
+                  <p className="text-gray-600">Contactez-nous pour nos disponibilités et nos prix.</p>
                 </div>
               </div>
 
@@ -138,7 +138,7 @@ export default function ContactPage() {
                   <h3 className="font-semibold mb-1" style={{ color: '#383738' }}>
                     {t.contact.whatsapp}
                   </h3>
-                  <p className="text-gray-600">+213 540153721</p>
+                  <p className="text-gray-600">Réponse rapide par téléphone ou WhatsApp.</p>
                 </div>
               </div>
 

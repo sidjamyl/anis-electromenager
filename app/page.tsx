@@ -14,19 +14,11 @@ import { useEffect, useState } from 'react';
 const HERO_SLIDES = [
   {
     id: '1',
-    image: '/hero1.jpg',
-    titleFr: 'Bienvenue chez Darine Emballage',
-    titleAr: 'مرحبا بكم في دارين للتغليف',
-    subtitleFr: ' Vente d\'emballage et produits alimentaires',
-    subtitleAr: 'بيع التغليف والمنتجات الغذائية الخاصة بك',
-  },
-  {
-    id: '2',
-    image: '/hero2.jpg',
-    titleFr: 'Qualité et Innovation',
-    titleAr: 'الجودة والابتكار',
-    subtitleFr: 'Des produits de qualité ',
-    subtitleAr: 'منتجات عالية الجودة ',
+    image: '/aniss-hero.png',
+    titleFr: 'L’électroménager qui simplifie la maison',
+    titleAr: 'أجهزة منزلية تجعل حياتك أسهل',
+    subtitleFr: 'Découvrez nos équipements fiables pour votre quotidien.',
+    subtitleAr: 'اكتشف أجهزتنا الموثوقة لمنزلك.',
   },
   // Ajoutez ici d'autres slides si nécessaire :
   // {
@@ -45,7 +37,8 @@ export default function Home() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedType, setSelectedType] = useState<'ALL' | 'FOOD' | 'PACKAGING'>('ALL');
+  const [categories, setCategories] = useState<any[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState('ALL');
 
   useEffect(() => {
     // Fetch popular products
@@ -65,6 +58,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => setReviews(data))
       .catch(() => setReviews([]));
+    fetch('/api/categories').then((res) => res.json()).then(setCategories).catch(() => setCategories([]));
   }, []);
 
   useEffect(() => {
@@ -82,12 +76,12 @@ export default function Home() {
     }
 
     // Type filter
-    if (selectedType !== 'ALL') {
-      filtered = filtered.filter((product: any) => product.type === selectedType);
+    if (selectedCategory !== 'ALL') {
+      filtered = filtered.filter((product: any) => product.categoryId === selectedCategory);
     }
 
     setFilteredProducts(filtered);
-  }, [popularProducts, searchQuery, selectedType]);
+  }, [popularProducts, searchQuery, selectedCategory]);
 
   return (
     <>
@@ -117,29 +111,14 @@ export default function Home() {
           {/* Category Buttons */}
           <div className="flex flex-wrap gap-3 justify-center">
             <Button
-              variant={selectedType === 'ALL' ? 'default' : 'outline'}
-              onClick={() => setSelectedType('ALL')}
-              style={selectedType === 'ALL' ? { backgroundColor: 'var(--brand-pink)', color: 'white' } : {}}
+              variant={selectedCategory === 'ALL' ? 'default' : 'outline'}
+              onClick={() => setSelectedCategory('ALL')}
+              style={selectedCategory === 'ALL' ? { backgroundColor: 'var(--brand-pink)', color: 'white' } : {}}
               className="hover:bg-[var(--brand-pink)] hover:text-white transition-colors"
             >
               {t.products.allProducts}
             </Button>
-            <Button
-              variant={selectedType === 'PACKAGING' ? 'default' : 'outline'}
-              onClick={() => setSelectedType('PACKAGING')}
-              style={selectedType === 'PACKAGING' ? { backgroundColor: 'var(--brand-pink)', color: 'white' } : {}}
-              className="hover:bg-[var(--brand-pink)] hover:text-white transition-colors"
-            >
-              {t.products.packaging}
-            </Button>
-            <Button
-              variant={selectedType === 'FOOD' ? 'default' : 'outline'}
-              onClick={() => setSelectedType('FOOD')}
-              style={selectedType === 'FOOD' ? { backgroundColor: 'var(--brand-pink)', color: 'white' } : {}}
-              className="hover:bg-[var(--brand-pink)] hover:text-white transition-colors"
-            >
-              {t.products.food}
-            </Button>
+            {categories.map((category) => <Button key={category.id} variant={selectedCategory === category.id ? 'default' : 'outline'} onClick={() => setSelectedCategory(category.id)} style={selectedCategory === category.id ? { backgroundColor: 'var(--brand-pink)', color: 'white' } : {}} className="hover:bg-[var(--brand-pink)] hover:text-white transition-colors">{category.nameFr}</Button>)}
           </div>
         </div>
 

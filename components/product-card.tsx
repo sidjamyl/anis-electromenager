@@ -41,7 +41,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   const name = locale === 'ar' ? product.nameAr : product.nameFr;
   const description = locale === 'ar' ? product.descriptionAr : product.descriptionFr;
-  const typeLabel = product.type === 'FOOD' ? t.products.food : t.products.packaging;
+  const typeLabel = locale === 'ar' && product.category?.nameAr ? product.category.nameAr : product.category?.nameFr || 'Électroménager';
   const isNew = product.newUntil && new Date(product.newUntil) > new Date();
 
   // Need to add translation for "New" if not exists, fallback to hardcoded for now or use key

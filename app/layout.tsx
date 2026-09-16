@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/language-context";
 import { CartProvider } from "@/lib/cart-context";
@@ -8,19 +7,9 @@ import { Footer } from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
 import { CartDrawer } from "@/components/cart-drawer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Darine Emballage - Qualité et Service",
-  description: "Votre partenaire pour tous vos besoins en emballage et produits alimentaires",
+  title: "Aniss Électroménager",
+  description: "Électroménager pour la maison, au meilleur prix.",
 };
 
 import { getSiteSettings } from "@/lib/actions";
@@ -35,14 +24,14 @@ export default async function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className="antialiased"
         style={{ '--brand-pink': settings.themeColor } as React.CSSProperties}
       >
         <LanguageProvider>
           <CartProvider>
-            <Navbar />
+            <Navbar settings={settings} />
             <main className="min-h-screen">{children}</main>
-            <Footer />
+            <Footer settings={settings} />
             <CartDrawer />
             <Toaster />
           </CartProvider>

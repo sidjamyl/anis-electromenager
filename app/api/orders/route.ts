@@ -1,195 +1,39 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-import { createElogistiaOrder } from '@/lib/elogistia';
+import { prisma } from '@/lib/prisma';
 import { getUser } from '@/lib/auth-server';
 import { sendOrderNotification } from '@/lib/utils/email';
 
-const prisma = new PrismaClient();
-
 export async function POST(request: Request) {
   try {
-    // Check if user is authenticated (optional but recommended)
-    let userId: string | undefined;
-    try {
-      const user = await getUser();
-      userId = user?.id;
-    } catch (error) {
-      // User not authenticated, continue without userId
-      console.log('Order created without user authentication');
-    }
-
+    const user = await getUser().catch(() => null);
     const body = await request.json();
-    const {
-      customerName,
-      customerPhone,
-      customerEmail,
-      address,
-      wilayaId,
-      wilaya,
-      municipalityId,
-      municipality,
-      deliveryType,
-      shippingCost,
-      subtotal,
-      total,
-      items,
-    } = body;
-
-    // Generate order number
-    const orderNumber = `DRN-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
-
-    // Create order in database first
-    const order = await prisma.order.create({
-      data: {
-        orderNumber,
-       
-        customerName,
-        customerPhone,
-        customerEmail,
-        address,
-        wilayaId,
-        wilaya,
-        municipalityId,
-        municipality,
-        deliveryType,
-        shippingCost,
-        subtotal,
-        total,
-        status: 'PENDING',
-        items: {
-          create: items.map((item: any) => ({
-            productId: item.productId,
-            productName: item.productName,
-            variantName: item.variantName,
-            quantity: item.quantity,
-            unitPrice: item.unitPrice,
-            total: item.total,
-          })),
-        },
-      },
-      include: {
-        items: true,
-      },
+    const { customerName, customerPhone, customerEmail, address, items } = body;
+    if (!customerName?.trim() || !customerPhone?.trim() || !address?.trim() || !Array.isArray(items) || !items.length) return NextResponse.json({ error: 'Informations de commande incomplètes' }, { status: 400 });
+    const productIds = items.map((item: { productId: string }) => item.productId);
+    const products = await prisma.product.findMany({ where: { id: { in: productIds } } });
+    if (products.length !== productIds.length) return NextResponse.json({ error: 'Produit invalide' }, { status: 400 });
+    const normalizedItems = items.map((item: { productId: string; variantName?: string; quantity: number; unitPrice: number }) => {
+      const product = products.find((p) => p.id === item.productId)!;
+      const quantity = Math.max(1, Math.floor(Number(item.quantity) || 1));
+      const unitPrice = Number(item.unitPrice);
+      if (!Number.isFinite(unitPrice) || unitPrice < 0) throw new Error('Prix invalide');
+      return { productId: product.id, productName: product.nameFr, variantName: item.variantName || null, quantity, unitPrice, total: quantity * unitPrice };
     });
-
-    // Send order to Elogistia
-    const elogistiaResult = await createElogistiaOrder({
-      customerName,
-      customerPhone,
-      customerEmail,
-      address,
-      wilayaId,
-      municipality,
-      deliveryType: deliveryType as 'HOME' | 'STOPDESK',
-      shippingCost,
-      products: items.map((item: any) => ({
-        name: item.variantName 
-          ? `${item.productName} - ${item.variantName} (x${item.quantity})` 
-          : `${item.productName} (x${item.quantity})`,
-        price: item.total,
-      })),
-      notes: `Sous-total: ${subtotal} DA | Frais de livraison: ${shippingCost} DA | Total: ${total} DA`,
-      orderNumber,
-    });
-
-    // Update order with Elogistia tracking if successful
-    if (elogistiaResult.success && elogistiaResult.trackingNumber) {
-      await prisma.order.update({
-        where: { id: order.id },
-        data: {
-          trackingNumber: elogistiaResult.trackingNumber,
-          status: 'CONFIRMED',
-        },
-      });
-      
-      // Send email notification to admin
-      try {
-        await sendOrderNotification({
-          orderNumber,
-          customerName,
-          customerPhone,
-          customerEmail,
-          address,
-          wilaya,
-          municipality,
-          subtotal,
-          shippingCost,
-          total,
-          items,
-          trackingNumber: elogistiaResult.trackingNumber,
-        });
-        console.log('Order notification email sent successfully');
-      } catch (emailError) {
-        console.error('Failed to send email notification:', emailError);
-        // Don't fail the order creation if email fails
-      }
-      
-      return NextResponse.json({
-        ...order,
-        trackingNumber: elogistiaResult.trackingNumber,
-        status: 'CONFIRMED',
-      }, { status: 201 });
-    } else {
-      // If Elogistia fails, keep order as PENDING for manual processing
-      console.error('Elogistia order creation failed:', elogistiaResult.error);
-      
-      // Send email notification to admin even if Elogistia fails
-      try {
-        await sendOrderNotification({
-          orderNumber,
-          customerName,
-          customerPhone,
-          customerEmail,
-          address,
-          wilaya,
-          municipality,
-          subtotal,
-          shippingCost,
-          total,
-          items,
-        });
-        console.log('Order notification email sent successfully (Elogistia failed)');
-      } catch (emailError) {
-        console.error('Failed to send email notification:', emailError);
-      }
-      
-      return NextResponse.json({
-        ...order,
-        warning: 'Order created locally but failed to sync with Elogistia',
-      }, { status: 201 });
-    }
-
+    const subtotal = normalizedItems.reduce((sum, item) => sum + item.total, 0);
+    const orderNumber = `ANS-${Date.now().toString().slice(-8)}`;
+    const order = await prisma.order.create({ data: { orderNumber, userId: user?.id, customerName: customerName.trim(), customerPhone: customerPhone.trim(), customerEmail: customerEmail?.trim() || null, address: address.trim(), wilaya: '', wilayaId: '', municipality: '', municipalityId: '', deliveryType: 'MANUAL', shippingCost: 0, subtotal, total: subtotal, status: 'PENDING', items: { create: normalizedItems } }, include: { items: true } });
+    const settings = await prisma.siteSettings.findFirst();
+    await sendOrderNotification(order, settings?.adminEmail === 'admin@example.com' ? undefined : settings?.adminEmail).catch((error) => console.error('Order email failed:', error));
+    return NextResponse.json(order, { status: 201 });
   } catch (error) {
-    console.error('Error creating order:', error);
-    return NextResponse.json(
-      { error: 'Failed to create order' },
-      { status: 500 }
-    );
+    console.error('Order creation failed:', error);
+    return NextResponse.json({ error: 'Impossible d’envoyer la commande' }, { status: 500 });
   }
 }
 
 export async function GET(request: Request) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const status = searchParams.get('status');
-
-    const orders = await prisma.order.findMany({
-      where: status ? { status: status as any } : undefined,
-      include: {
-        items: {
-          include: {
-            product: true,
-          },
-        },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
-
-    return NextResponse.json(orders);
-  } catch (error) {
-    console.error('Error fetching orders:', error);
-    return NextResponse.json([], { status: 500 });
-  }
+  const user = await getUser();
+  if (!user || user.role !== 'ADMIN') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const status = new URL(request.url).searchParams.get('status');
+  return NextResponse.json(await prisma.order.findMany({ where: status && status !== 'ALL' ? { status } : undefined, include: { items: true }, orderBy: { createdAt: 'desc' } }));
 }

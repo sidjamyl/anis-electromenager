@@ -17,8 +17,8 @@ export const translations = {
     },
     // Hero Section
     hero: {
-      title: 'Darine Emballage',
-      subtitle: 'Qualité, emballages, produits alimentaires & livraison',
+      title: 'Aniss Électroménager',
+      subtitle: 'Des appareils fiables pour votre maison',
       viewCatalog: 'Voir le catalogue',
     },
     // Products
@@ -26,8 +26,8 @@ export const translations = {
       popular: 'Produits les plus populaires',
       addToCart: 'Ajouter au panier',
       orderNow: 'Commander maintenant',
-      food: 'Produit alimentaire',
-      packaging: 'Produit d\'emballage',
+      food: 'Électroménager',
+      packaging: 'Électroménager',
       allProducts: 'Tous les produits',
       searchPlaceholder: 'Rechercher un produit...',
       filterByType: 'Filtrer par type',
@@ -90,8 +90,8 @@ export const translations = {
     },
     // About
     about: {
-      title: 'À propos de Darine Emballage',
-      description: 'Darine Emballage est votre partenaire de confiance pour tous vos besoins en emballage et produits alimentaires de qualité.',
+      title: 'À propos d’Aniss Électroménager',
+      description: 'Aniss Électroménager vous accompagne pour équiper votre maison avec des produits fiables.',
     },
     // Footer
     footer: {
@@ -108,7 +108,7 @@ export const translations = {
       cancel: 'Annuler',
       confirmOrder: 'Confirmer cette commande ?',
       cancelOrder: 'Annuler cette commande ?',
-      confirmMessage: 'Cette action enverra la commande à Elogistia.',
+      confirmMessage: 'Cette action confirme la commande.',
       cancelMessage: 'Cette action annulera définitivement la commande.',
       yes: 'Oui',
       no: 'Non',
@@ -144,8 +144,8 @@ export const translations = {
     },
     // Hero Section
     hero: {
-      title: 'دارين للتغليف',
-      subtitle: 'جودة، تغليف، منتجات غذائية وتوصيل',
+      title: 'أنيس للأجهزة الكهرومنزلية',
+      subtitle: 'أجهزة موثوقة لمنزلك',
       viewCatalog: 'عرض القائمة الرئيسية',
     },
     // Products
@@ -154,7 +154,7 @@ export const translations = {
       addToCart: 'أضف إلى السلة',
       orderNow: 'اطلب الآن',
       food: 'منتج غذائي',
-      packaging: 'منتج تغليف',
+      packaging: 'أجهزة كهرومنزلية',
       allProducts: 'جميع المنتجات',
       searchPlaceholder: 'ابحث عن منتج...',
       filterByType: 'تصفية حسب النوع',
@@ -217,8 +217,8 @@ export const translations = {
     },
     // About
     about: {
-      title: 'عن دارين للتغليف',
-      description: 'دارين للتغليف هو شريكك الموثوق لجميع احتياجاتك من التغليف والمنتجات الغذائية عالية الجودة.',
+      title: 'عن أنيس للأجهزة الكهرومنزلية',
+      description: 'أنيس للأجهزة الكهرومنزلية يرافقك لتجهيز منزلك بمنتجات موثوقة.',
     },
     // Footer
     footer: {
@@ -235,7 +235,7 @@ export const translations = {
       cancel: 'إلغاء',
       confirmOrder: 'تأكيد هذا الطلب؟',
       cancelOrder: 'إلغاء هذا الطلب؟',
-      confirmMessage: 'سيتم إرسال الطلب إلى Elogistia.',
+      confirmMessage: 'سيتم تأكيد الطلب.',
       cancelMessage: 'سيتم إلغاء الطلب نهائيًا.',
       yes: 'نعم',
       no: 'لا',

@@ -82,7 +82,9 @@ model Product {
   descriptionFr String
   descriptionAr String
   price         Float
-  type          String        @default("FOOD") // FOOD or PACKAGING
+  type          String        @default("GENERAL") // Legacy fallback for uncategorized products
+  categoryId    String?
+  category      Category?     @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   image         String
   hasVariants   Boolean       @default(false)
   isPopular     Boolean       @default(false)
@@ -95,6 +97,17 @@ model Product {
   orderItems    OrderItem[]
 
   @@map("product")
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  nameFr    String    @unique
+  nameAr    String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
+
+  @@map("category")
 }
 
 model ProductVariant {
@@ -188,7 +201,11 @@ model HeroSlide {
 
 model SiteSettings {
   id          String   @id @default(cuid())
-  themeColor  String   @default("#D63384") // Darker pink default
+  themeColor  String   @default("#F59E0B")
+  storeName   String   @default("Aniss Électroménager")
+  logoUrl     String   @default("/aniss-logo.png")
+  phone       String   @default("+213 000 000 000")
+  adminEmail  String   @default("admin@example.com")
   updatedAt   DateTime @updatedAt
 
   @@map("site_settings")

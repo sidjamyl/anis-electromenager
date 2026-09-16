@@ -20,7 +20,8 @@ export default function CatalogPage() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedType, setSelectedType] = useState<'ALL' | 'FOOD' | 'PACKAGING'>('ALL');
+  const [categories, setCategories] = useState<any[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState('ALL');
 
   useEffect(() => {
     // Fetch all products
@@ -34,6 +35,7 @@ export default function CatalogPage() {
         setProducts([]);
         setFilteredProducts([]);
       });
+    fetch('/api/categories').then((res) => res.json()).then(setCategories).catch(() => setCategories([]));
   }, []);
 
   useEffect(() => {
@@ -51,16 +53,16 @@ export default function CatalogPage() {
     }
 
     // Type filter
-    if (selectedType !== 'ALL') {
-      filtered = filtered.filter((product: any) => product.type === selectedType);
+    if (selectedCategory !== 'ALL') {
+      filtered = filtered.filter((product: any) => product.categoryId === selectedCategory);
     }
 
     setFilteredProducts(filtered);
-  }, [products, searchQuery, selectedType]);
+  }, [products, searchQuery, selectedCategory]);
 
   const resetFilters = () => {
     setSearchQuery('');
-    setSelectedType('ALL');
+    setSelectedCategory('ALL');
   };
 
   return (
@@ -86,29 +88,14 @@ export default function CatalogPage() {
         {/* Category Buttons */}
         <div className="flex flex-wrap gap-3">
           <Button
-            variant={selectedType === 'ALL' ? 'default' : 'outline'}
-            onClick={() => setSelectedType('ALL')}
-            style={selectedType === 'ALL' ? { backgroundColor: 'var(--brand-pink)', color: 'white' } : {}}
+            variant={selectedCategory === 'ALL' ? 'default' : 'outline'}
+            onClick={() => setSelectedCategory('ALL')}
+            style={selectedCategory === 'ALL' ? { backgroundColor: 'var(--brand-pink)', color: 'white' } : {}}
             className="hover:bg-[var(--brand-pink)] hover:text-white transition-colors"
           >
             {t.products.allProducts}
           </Button>
-          <Button
-            variant={selectedType === 'PACKAGING' ? 'default' : 'outline'}
-            onClick={() => setSelectedType('PACKAGING')}
-            style={selectedType === 'PACKAGING' ? { backgroundColor: 'var(--brand-pink)', color: 'white' } : {}}
-            className="hover:bg-[var(--brand-pink)] hover:text-white transition-colors"
-          >
-            {t.products.packaging}
-          </Button>
-          <Button
-            variant={selectedType === 'FOOD' ? 'default' : 'outline'}
-            onClick={() => setSelectedType('FOOD')}
-            style={selectedType === 'FOOD' ? { backgroundColor: 'var(--brand-pink)', color: 'white' } : {}}
-            className="hover:bg-[var(--brand-pink)] hover:text-white transition-colors"
-          >
-            {t.products.food}
-          </Button>
+          {categories.map((category) => <Button key={category.id} variant={selectedCategory === category.id ? 'default' : 'outline'} onClick={() => setSelectedCategory(category.id)} style={selectedCategory === category.id ? { backgroundColor: 'var(--brand-pink)', color: 'white' } : {}} className="hover:bg-[var(--brand-pink)] hover:text-white transition-colors">{category.nameFr}</Button>)}
         </div>
       </div>
 

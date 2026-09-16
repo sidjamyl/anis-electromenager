@@ -1,9 +1,9 @@
 ---
-name: Darine_emballage
+name: aniss-electromenager
 description: A brief description of what this skill does
 ---
 
-# Darine_emballage
+# Aniss Électroménager
 
 Instructions for the agent to follow when this skill is activated.
 

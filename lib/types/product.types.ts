@@ -7,7 +7,7 @@
 /**
  * Product types in the system
  */
-export type ProductType = 'FOOD' | 'PACKAGING';
+export type ProductType = string;
 
 /**
  * Base product interface
@@ -20,6 +20,8 @@ export interface Product {
   descriptionAr: string;
   price: number;
   type: ProductType;
+  categoryId?: string | null;
+  category?: { id: string; nameFr: string; nameAr?: string | null } | null;
   image: string;
   hasVariants: boolean;
   isPopular: boolean;
@@ -58,6 +60,7 @@ export interface ProductFormData {
   descriptionAr: string;
   price: number;
   type: ProductType;
+  categoryId?: string;
   image: string;
   hasVariants: boolean;
   isPopular: boolean;

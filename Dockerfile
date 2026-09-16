@@ -1,15 +1,12 @@
 FROM node:20-slim
-RUN apt-get update -y && apt-get install -y openssl
+RUN apt-get update -y && apt-get install -y --no-install-recommends openssl && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --ignore-scripts
-
-# Copie schema + génère AVANT le reste
 COPY prisma ./prisma/
-RUN npx prisma generate  # Utilise binaryTargets du schema
-
+RUN npx prisma generate
 COPY . .
 RUN npm run build
 
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]

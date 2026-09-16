@@ -50,7 +50,6 @@ export function OrderCard({ order }: OrderCardProps) {
             <p>{order.customerPhone}</p>
             {order.customerEmail && <p>{order.customerEmail}</p>}
             <p className="mt-2">{order.address}</p>
-            <p>{order.municipality}, {order.wilaya}</p>
           </div>
           <div>
             <p className="font-semibold mb-2">Résumé</p>
@@ -87,14 +86,6 @@ export function OrderCard({ order }: OrderCardProps) {
             ))}
           </div>
         </div>
-
-        <Button
-          onClick={() => window.open('https://elogistia.com/app/client/', '_blank')}
-          style={{ backgroundColor: '#F8A6B0' }}
-          className="w-full mt-4"
-        >
-          Voir la commande sur elogistia
-        </Button>
 
         {order.trackingNumber && (
           <div className="mt-4 p-3 bg-gray-50 rounded">

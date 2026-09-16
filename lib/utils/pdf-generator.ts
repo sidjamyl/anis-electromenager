@@ -192,7 +192,7 @@ export async function generateOrderPDF(order: Order) {
   doc.setTextColor(100, 100, 100);
   doc.setFont('helvetica', 'normal');
   doc.text('Merci pour votre commande !', 105, yPosition, { align: 'center' });
-  doc.text('Darine Emballage - www.darine-emballage.com', 105, yPosition + 5, { align: 'center' });
+  doc.text('Aniss Électroménager', 105, yPosition + 5, { align: 'center' });
 
   // Save the PDF
   doc.save(`Commande_${order.orderNumber}.pdf`);

@@ -38,6 +38,7 @@ interface Product {
   descriptionAr: string;
   price: number;
   type: string;
+  categoryId?: string;
   image: string;
   hasVariants: boolean;
   isPopular: boolean;
@@ -45,6 +46,8 @@ interface Product {
   ribbonText?: string;
   newUntil?: string; // ISO date string
 }
+
+interface Category { id: string; nameFr: string; nameAr?: string; _count?: { products: number } }
 
 interface User {
   id: string;
@@ -68,6 +71,8 @@ export default function AdminPage() {
 
   // Products
   const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [newCategory, setNewCategory] = useState('');
   const [showProductDialog, setShowProductDialog] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [productForm, setProductForm] = useState({
@@ -76,7 +81,8 @@ export default function AdminPage() {
     descriptionFr: '',
     descriptionAr: '',
     price: 0,
-    type: 'FOOD',
+    type: 'GENERAL',
+    categoryId: '',
     image: '',
     hasVariants: false,
     isPopular: false,
@@ -93,7 +99,11 @@ export default function AdminPage() {
   const [uploadingImage, setUploadingImage] = useState(false);
 
   // Settings
-  const [themeColor, setThemeColor] = useState('#D63384');
+  const [themeColor, setThemeColor] = useState('#F59E0B');
+  const [storeName, setStoreName] = useState('Aniss Électroménager');
+  const [logoUrl, setLogoUrl] = useState('/aniss-logo.png');
+  const [phone, setPhone] = useState('+213 000 000 000');
+  const [adminEmail, setAdminEmail] = useState('');
   const [isSavingSettings, setIsSavingSettings] = useState(false);
 
   // Users
@@ -112,7 +122,7 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (activeTab === 'orders') fetchOrders();
-    if (activeTab === 'products') fetchProducts();
+    if (activeTab === 'products') { fetchProducts(); fetchCategories(); }
     if (activeTab === 'users') fetchUsers();
     if (activeTab === 'settings') fetchSettings();
   }, [activeTab]);
@@ -138,7 +148,7 @@ export default function AdminPage() {
   // Orders Functions
   const fetchOrders = async (status?: string) => {
     try {
-      const url = status && status !== 'ALL' ? `/api/elogistia/orders-fixed?status=${status}` : '/api/elogistia/orders-fixed';
+      const url = status && status !== 'ALL' ? `/api/orders?status=${status}` : '/api/orders';
       const response = await fetch(url);
 
       if (!response.ok) {
@@ -200,6 +210,24 @@ export default function AdminPage() {
     }
   };
 
+  const fetchCategories = async () => {
+    const response = await fetch('/api/categories');
+    setCategories(await response.json());
+  };
+
+  const createCategory = async () => {
+    if (!newCategory.trim()) return;
+    const response = await fetch('/api/categories', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nameFr: newCategory }) });
+    if (!response.ok) return toast.error('Impossible de créer la catégorie');
+    setNewCategory(''); fetchCategories(); toast.success('Catégorie créée');
+  };
+
+  const deleteCategory = async (id: string) => {
+    if (!confirm('Supprimer cette catégorie ?')) return;
+    const response = await fetch(`/api/categories?id=${id}`, { method: 'DELETE' });
+    if (response.ok) fetchCategories(); else toast.error('Impossible de supprimer cette catégorie');
+  };
+
   const openProductDialog = async (product?: Product) => {
     if (product) {
       setEditingProduct(product);
@@ -210,6 +238,7 @@ export default function AdminPage() {
         descriptionAr: product.descriptionAr,
         price: product.price,
         type: product.type,
+        categoryId: product.categoryId || '',
         image: product.image,
         hasVariants: product.hasVariants,
         isPopular: product.isPopular,
@@ -269,7 +298,8 @@ export default function AdminPage() {
         descriptionFr: '',
         descriptionAr: '',
         price: 0,
-        type: 'FOOD',
+        type: 'GENERAL',
+        categoryId: '',
         image: '',
         hasVariants: false,
         isPopular: false,
@@ -349,6 +379,7 @@ export default function AdminPage() {
       toast.error('L\'URL de l\'image est obligatoire');
       return;
     }
+    if (!productForm.categoryId) { toast.error('Choisissez une catégorie'); return; }
 
     // Validation des variantes si hasVariants est true
     if (productForm.hasVariants) {
@@ -472,6 +503,10 @@ export default function AdminPage() {
       const settings = await getSiteSettings();
       if (settings && settings.themeColor) {
         setThemeColor(settings.themeColor);
+        setStoreName(settings.storeName || 'Aniss Électroménager');
+        setLogoUrl(settings.logoUrl || '/aniss-logo.png');
+        setPhone(settings.phone || '');
+        setAdminEmail(settings.adminEmail || '');
       }
     } catch (error) {
       console.error('Error fetching settings:', error);
@@ -481,11 +516,10 @@ export default function AdminPage() {
   const saveSettings = async () => {
     setIsSavingSettings(true);
     try {
-      const result = await updateSiteSettings({ themeColor });
+      const result = await updateSiteSettings({ themeColor, storeName, logoUrl, phone, adminEmail });
       if (result.success) {
         toast.success('Paramètres enregistrés');
-        // Force reload to apply theme changes immediately if layout doesn't re-render
-        // router.refresh(); 
+        router.refresh();
       } else {
         toast.error('Erreur lors de l\'enregistrement');
       }
@@ -612,11 +646,17 @@ export default function AdminPage() {
       {/* Products Tab */}
       {activeTab === 'products' && (
         <div>
-          <div className="mb-6">
+          <div className="mb-6 flex flex-wrap gap-3">
             <Button onClick={() => openProductDialog()} style={{ backgroundColor: '#F8A6B0' }}>
               <Plus className="h-4 w-4 mr-2" />
               Ajouter un produit
             </Button>
+            <div className="flex flex-1 flex-wrap items-center gap-2 rounded-lg border bg-white p-2">
+              <span className="text-sm font-semibold">Catégories :</span>
+              {categories.map((category) => <span key={category.id} className="flex items-center gap-1 rounded-full bg-slate-100 px-2 py-1 text-xs">{category.nameFr} <button onClick={() => deleteCategory(category.id)} title="Supprimer" className="text-slate-400 hover:text-red-500">×</button></span>)}
+              <Input value={newCategory} onChange={(event) => setNewCategory(event.target.value)} onKeyDown={(event) => event.key === 'Enter' && createCategory()} placeholder="Nouvelle catégorie" className="h-8 w-40" />
+              <Button size="sm" variant="outline" onClick={createCategory}>Ajouter</Button>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -713,7 +753,7 @@ export default function AdminPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               <div>
-                <Label>Couleur principale (Rose)</Label>
+                <Label>Couleur principale</Label>
                 <div className="flex gap-4 mt-2 items-center">
                   <Input
                     type="color"
@@ -736,6 +776,13 @@ export default function AdminPage() {
                 <p className="text-sm text-gray-500 mt-2">
                   Cette couleur sera utilisée pour les boutons, les prix et les accents dans toute l'application.
                 </p>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <div><Label>Nom du magasin</Label><Input value={storeName} onChange={(event) => setStoreName(event.target.value)} className="mt-2" /></div>
+                <div><Label>Téléphone</Label><Input value={phone} onChange={(event) => setPhone(event.target.value)} className="mt-2" /></div>
+                <div><Label>Logo (URL)</Label><Input value={logoUrl} onChange={(event) => setLogoUrl(event.target.value)} className="mt-2" /></div>
+                <div><Label>E-mail des commandes</Label><Input type="email" value={adminEmail} onChange={(event) => setAdminEmail(event.target.value)} className="mt-2" /></div>
               </div>
 
               <Button
@@ -821,17 +868,16 @@ export default function AdminPage() {
                 />
               </div>
               <div>
-                <Label>Type *</Label>
+                <Label>Catégorie *</Label>
                 <Select
-                  value={productForm.type}
-                  onValueChange={(value) => setProductForm({ ...productForm, type: value })}
+                  value={productForm.categoryId}
+                  onValueChange={(value) => setProductForm({ ...productForm, categoryId: value })}
                 >
                   <SelectTrigger className="mt-2">
-                    <SelectValue />
+                    <SelectValue placeholder="Choisir une catégorie" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="FOOD">Alimentaire</SelectItem>
-                    <SelectItem value="PACKAGING">Emballage</SelectItem>
+                    {categories.map((category) => <SelectItem key={category.id} value={category.id}>{category.nameFr}</SelectItem>)}
                   </SelectContent>
                 </Select>
               </div>
