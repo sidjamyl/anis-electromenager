@@ -23,9 +23,10 @@ export async function POST(request: NextRequest) {
     // Récupérer le fichier
     const formData = await request.formData();
     const file = formData.get('file') as File;
+    const kind = formData.get('kind') === 'logo' ? 'logos' : 'products';
 
-    if (!file) {
-      return NextResponse.json({ error: 'Aucun fichier fourni' }, { status: 400 });
+    if (!file || !file.type.startsWith('image/') || file.size > 5 * 1024 * 1024) {
+      return NextResponse.json({ error: 'Image invalide (5 Mo maximum)' }, { status: 400 });
     }
 
     // Convertir le fichier en buffer
@@ -37,7 +38,7 @@ export async function POST(request: NextRequest) {
       cloudinary.uploader
         .upload_stream(
           {
-            folder: 'aniss_electromenager',
+            folder: `aniss_electromenager/${kind}`,
             resource_type: 'auto',
           },
           (error, result) => {

@@ -97,6 +97,7 @@ export default function AdminPage() {
     priceAdjustment: number;
   }>>([]);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadingLogo, setUploadingLogo] = useState(false);
 
   // Settings
   const [themeColor, setThemeColor] = useState('#F59E0B');
@@ -312,44 +313,46 @@ export default function AdminPage() {
     setShowProductDialog(true);
   };
 
+  const uploadImage = async (file: File, kind: 'product' | 'logo') => {
+    if (!file.type.startsWith('image/')) {
+      throw new Error('Veuillez sélectionner une image');
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      throw new Error('L\'image ne doit pas dépasser 5MB');
+    }
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('kind', kind);
+    const response = await fetch('/api/upload', { method: 'POST', body: formData });
+    if (!response.ok) throw new Error('Erreur lors de l\'upload');
+    return (await response.json()).url as string;
+  };
+
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
-    // Vérifier le type de fichier
-    if (!file.type.startsWith('image/')) {
-      toast.error('Veuillez sélectionner une image');
-      return;
-    }
-
-    // Vérifier la taille (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error('L\'image ne doit pas dépasser 5MB');
-      return;
-    }
-
     setUploadingImage(true);
-
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setProductForm({ ...productForm, image: data.url });
-        toast.success('Image uploadée avec succès');
-      } else {
-        toast.error('Erreur lors de l\'upload');
-      }
+      setProductForm({ ...productForm, image: await uploadImage(file, 'product') });
+      toast.success('Image uploadée avec succès');
     } catch (error) {
-      toast.error('Erreur lors de l\'upload');
+      toast.error(error instanceof Error ? error.message : 'Erreur lors de l\'upload');
     } finally {
       setUploadingImage(false);
+    }
+  };
+
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingLogo(true);
+    try {
+      setLogoUrl(await uploadImage(file, 'logo'));
+      toast.success('Logo uploadé : enregistrez les paramètres');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Erreur lors de l\'upload');
+    } finally {
+      setUploadingLogo(false);
     }
   };
 
@@ -781,7 +784,7 @@ export default function AdminPage() {
               <div className="grid gap-4 md:grid-cols-2">
                 <div><Label>Nom du magasin</Label><Input value={storeName} onChange={(event) => setStoreName(event.target.value)} className="mt-2" /></div>
                 <div><Label>Téléphone</Label><Input value={phone} onChange={(event) => setPhone(event.target.value)} className="mt-2" /></div>
-                <div><Label>Logo (URL)</Label><Input value={logoUrl} onChange={(event) => setLogoUrl(event.target.value)} className="mt-2" /></div>
+                <div><Label>Logo</Label><Input value={logoUrl} onChange={(event) => setLogoUrl(event.target.value)} className="mt-2" /><Input type="file" accept="image/*" onChange={handleLogoUpload} disabled={uploadingLogo} className="mt-2" />{uploadingLogo && <p className="mt-1 text-xs text-slate-500">Upload Cloudinary…</p>}</div>
                 <div><Label>E-mail des commandes</Label><Input type="email" value={adminEmail} onChange={(event) => setAdminEmail(event.target.value)} className="mt-2" /></div>
               </div>
 

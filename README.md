@@ -21,6 +21,9 @@ EMAIL_SERVER_USER="noreply@votre-domaine.com"
 EMAIL_SERVER_PASSWORD="votre-mot-de-passe-smtp"
 EMAIL_FROM="noreply@votre-domaine.com"
 ADMIN_EMAIL="commandes@votre-domaine.com"
+CLOUDINARY_CLOUD_NAME="votre-cloud-name"
+CLOUDINARY_API_KEY="votre-api-key"
+CLOUDINARY_API_SECRET="votre-api-secret"
 ```
 
 ## Dokploy
