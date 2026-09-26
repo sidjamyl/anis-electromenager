@@ -33,3 +33,7 @@ Le projet se déploie directement avec le `Dockerfile`.
 - Ajoutez les variables d’environnement ci-dessus dans Dokploy.
 - Pour SQLite, montez un volume persistant sur `/app/data` et utilisez `DATABASE_URL=file:/app/data/aniss.db`.
 - Le conteneur applique les migrations Prisma avant de démarrer Next.js sur le port `3000`.
+
+## cPanel + MySQL
+
+Le guide complet et le modèle de variables sont dans [CPANEL.md](./CPANEL.md) et [.env.mysql.example](./.env.mysql.example). La cible MySQL utilise `prisma/schema.mysql.prisma` afin de ne pas interrompre le déploiement SQLite actuel sur Dokploy.

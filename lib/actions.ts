@@ -10,7 +10,7 @@ export async function getSiteSettings() {
             // Create default settings if not exists
             return await (prisma as any).siteSettings.create({
                 data: {
-                    themeColor: '#F59E0B',
+                    themeColor: '#2B0AA8',
                     storeName: 'Aniss Électroménager',
                     logoUrl: '/aniss-logo.png',
                     phone: '+213 000 000 000',
@@ -21,7 +21,7 @@ export async function getSiteSettings() {
         return settings;
     } catch (error) {
         console.error('Error fetching site settings:', error);
-        return { themeColor: '#F59E0B', storeName: 'Aniss Électroménager', logoUrl: '/aniss-logo.png', phone: '+213 000 000 000', adminEmail: 'admin@example.com' };
+        return { themeColor: '#2B0AA8', storeName: 'Aniss Électroménager', logoUrl: '/aniss-logo.png', phone: '+213 000 000 000', adminEmail: 'admin@example.com' };
     }
 }
 

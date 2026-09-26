@@ -1,0 +1,212 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id
+  email         String    @unique
+  name          String?
+  emailVerified Boolean   @default(false)
+  image         String?
+  role          String    @default("USER") // USER or ADMIN
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  orders        Order[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+// E-commerce Models
+
+model Product {
+  id            String        @id @default(cuid())
+  nameFr        String
+  nameAr        String
+  descriptionFr String
+  descriptionAr String
+  price         Float
+  type          String        @default("GENERAL") // Legacy fallback for uncategorized products
+  categoryId    String?
+  category      Category?     @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  image         String
+  hasVariants   Boolean       @default(false)
+  isPopular     Boolean       @default(false)
+  isPinned      Boolean       @default(false)
+  ribbonText    String?
+  newUntil      DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  variants      ProductVariant[]
+  orderItems    OrderItem[]
+
+  @@map("product")
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  nameFr    String    @unique
+  nameAr    String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
+
+  @@map("category")
+}
+
+model ProductVariant {
+  id            String   @id @default(cuid())
+  productId     String
+  product       Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  nameFr        String   // ex: "Petit", "Moyen", "Grand"
+  nameAr        String
+  priceAdjustment Float  @default(0) // Ajustement de prix (+/-)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([productId])
+  @@map("product_variant")
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique
+  userId          String?
+  user            User?       @relation(fields: [userId], references: [id])
+  customerName    String
+  customerPhone   String
+  customerEmail   String?
+  address         String
+  wilaya          String
+  wilayaId        String
+  municipality    String
+  municipalityId  String
+  deliveryType    String      // HOME or STOPDESK
+  shippingCost    Float
+  subtotal        Float
+  total           Float
+  status          String      @default("DRAFT") // DRAFT, CONFIRMED, CANCELLED, DELIVERED
+  trackingNumber  String?
+  trackingStatus  String?
+  notes           String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  items           OrderItem[]
+
+  @@index([userId])
+  @@map("order")
+}
+
+model OrderItem {
+  id            String   @id @default(cuid())
+  orderId       String
+  order         Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId     String
+  product       Product  @relation(fields: [productId], references: [id])
+  productName   String   // Snapshot du nom au moment de la commande
+  variantName   String?  // Si applicable
+  quantity      Int
+  unitPrice     Float
+  total         Float
+  createdAt     DateTime @default(now())
+
+  @@index([orderId])
+  @@index([productId])
+  @@map("order_item")
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  customerName String?
+  rating      Int?     // 1-5 étoiles, optionnel
+  reviewFr    String
+  reviewAr    String
+  isVisible   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("review")
+}
+
+model HeroSlide {
+  id          String   @id @default(cuid())
+  image       String
+  titleFr     String
+  titleAr     String
+  subtitleFr  String?
+  subtitleAr  String?
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("hero_slide")
+}
+
+model SiteSettings {
+  id          String   @id @default(cuid())
+  themeColor  String   @default("#2B0AA8")
+  storeName   String   @default("Aniss Électroménager")
+  logoUrl     String   @default("/aniss-logo.png")
+  phone       String   @default("+213 000 000 000")
+  adminEmail  String   @default("admin@example.com")
+  updatedAt   DateTime @updatedAt
+
+  @@map("site_settings")
+}

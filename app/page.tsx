@@ -14,21 +14,13 @@ import { useEffect, useState } from 'react';
 const HERO_SLIDES = [
   {
     id: '1',
-    image: '/aniss-hero.png',
-    titleFr: 'L’électroménager qui simplifie la maison',
+    image: '/aniss-hero-v2.png',
+    titleFr: 'Le bon équipement, pour une maison qui vous ressemble.',
     titleAr: 'أجهزة منزلية تجعل حياتك أسهل',
-    subtitleFr: 'Découvrez nos équipements fiables pour votre quotidien.',
+    subtitleFr: 'Des appareils fiables, choisis pour votre quotidien.',
     subtitleAr: 'اكتشف أجهزتنا الموثوقة لمنزلك.',
   },
-  // Ajoutez ici d'autres slides si nécessaire :
-  // {
-  //   id: '3',
-  //   image: '/hero3.jpg',
-  //   titleFr: 'Votre titre',
-  //   titleAr: 'العنوان الخاص بك',
-  //   subtitleFr: 'Votre sous-titre',
-  //   subtitleAr: 'العنوان الفرعي الخاص بك',
-  // },
+  { id: '2', image: '/aniss-kitchen-v2.png', titleFr: 'Cuisine, froid, lavage : tout pour s’équiper.', titleAr: 'المطبخ والتبريد والغسيل: كل ما تحتاجه.', subtitleFr: 'Découvrez notre sélection électroménager.', subtitleAr: 'اكتشف تشكيلتنا من الأجهزة المنزلية.' },
 ];
 
 export default function Home() {
@@ -90,7 +82,8 @@ export default function Home() {
 
       {/* Popular Products */}
       <section className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-center mb-8" style={{ color: '#383738' }}>
+        <p className="mb-2 text-center text-xs font-extrabold uppercase tracking-[0.18em] text-[#2b0aa8]">Notre sélection</p>
+        <h2 className="text-3xl font-extrabold text-center mb-8" style={{ color: '#082b5b' }}>
           {t.products.popular}
         </h2>
 

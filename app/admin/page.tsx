@@ -100,7 +100,7 @@ export default function AdminPage() {
   const [uploadingLogo, setUploadingLogo] = useState(false);
 
   // Settings
-  const [themeColor, setThemeColor] = useState('#F59E0B');
+  const [themeColor, setThemeColor] = useState('#2B0AA8');
   const [storeName, setStoreName] = useState('Aniss Électroménager');
   const [logoUrl, setLogoUrl] = useState('/aniss-logo.png');
   const [phone, setPhone] = useState('+213 000 000 000');

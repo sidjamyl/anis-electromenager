@@ -104,8 +104,8 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <>
-      <Card className="overflow-hidden hover:shadow-lg transition-shadow relative">
-        <Link href={`/catalog/${product.id}`} className="block relative h-36 md:h-48 overflow-hidden group bg-gray-50">
+      <Card className="relative overflow-hidden border-[#dbe2eb] shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
+        <Link href={`/catalog/${product.id}`} className="block relative h-36 overflow-hidden bg-[#f6f7fb] group md:h-48">
           <img
             src={product.image}
             alt={name}
@@ -132,7 +132,7 @@ export function ProductCard({ product }: ProductCardProps) {
         </Link>
         <CardContent className="p-2.5 md:p-4">
           <Link href={`/catalog/${product.id}`}>
-            <h3 className="font-bold text-sm md:text-xl mb-1 md:mb-2 hover:text-[var(--brand-pink)] transition-colors line-clamp-2" style={{ color: '#383738' }}>
+            <h3 className="mb-1 text-sm font-bold text-[#082b5b] transition-colors hover:text-[var(--brand-pink)] line-clamp-2 md:mb-2 md:text-xl">
               {name}
             </h3>
           </Link>

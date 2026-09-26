@@ -27,7 +27,7 @@ export default async function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <body
         className="antialiased"
-        style={{ '--brand-pink': settings.themeColor } as React.CSSProperties}
+        style={{ '--brand-pink': settings.themeColor === '#F59E0B' ? '#2B0AA8' : settings.themeColor } as React.CSSProperties}
       >
         <LanguageProvider>
           <CartProvider>

@@ -7,7 +7,7 @@ export async function POST(request: Request) {
   try {
     const user = await getUser().catch(() => null);
     const body = await request.json();
-    const { customerName, customerPhone, customerEmail, address, items } = body;
+    const { customerName, customerPhone, address, items } = body;
     if (!customerName?.trim() || !customerPhone?.trim() || !address?.trim() || !Array.isArray(items) || !items.length) return NextResponse.json({ error: 'Informations de commande incomplètes' }, { status: 400 });
     const productIds = items.map((item: { productId: string }) => item.productId);
     const products = await prisma.product.findMany({ where: { id: { in: productIds } } });
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     });
     const subtotal = normalizedItems.reduce((sum, item) => sum + item.total, 0);
     const orderNumber = `ANS-${Date.now().toString().slice(-8)}`;
-    const order = await prisma.order.create({ data: { orderNumber, userId: user?.id, customerName: customerName.trim(), customerPhone: customerPhone.trim(), customerEmail: customerEmail?.trim() || null, address: address.trim(), wilaya: '', wilayaId: '', municipality: '', municipalityId: '', deliveryType: 'MANUAL', shippingCost: 0, subtotal, total: subtotal, status: 'PENDING', items: { create: normalizedItems } }, include: { items: true } });
+    const order = await prisma.order.create({ data: { orderNumber, userId: user?.id, customerName: customerName.trim(), customerPhone: customerPhone.trim(), customerEmail: null, address: address.trim(), wilaya: '', wilayaId: '', municipality: '', municipalityId: '', deliveryType: 'MANUAL', shippingCost: 0, subtotal, total: subtotal, status: 'PENDING', items: { create: normalizedItems } }, include: { items: true } });
     const settings = await prisma.siteSettings.findFirst();
     await sendOrderNotification(order, settings?.adminEmail === 'admin@example.com' ? undefined : settings?.adminEmail).catch((error) => console.error('Order email failed:', error));
     return NextResponse.json(order, { status: 201 });
