@@ -1,4 +1,4 @@
-# Aniss Électroménager
+# DZ Shopping
 
 Boutique bilingue FR/AR d’électroménager, avec catalogue, panier, commandes e-mail et administration.
 

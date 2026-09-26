@@ -4,7 +4,7 @@ Cette version utilise SQLite sur Dokploy. Pour cPanel, utilisez le schéma MySQL
 
 ## 1. Créer la base
 
-Dans **cPanel → MySQL Databases**, créez une base et un utilisateur, puis donnez à cet utilisateur **ALL PRIVILEGES** sur la base. Notez les noms complets ajoutés par cPanel, par exemple `cpuser_aniss` et `cpuser_shop`.
+Dans **cPanel → MySQL Databases**, créez une base et un utilisateur, puis donnez à cet utilisateur **ALL PRIVILEGES** sur la base. Notez les noms complets ajoutés par cPanel, par exemple `cpuser_dzshop` et `cpuser_shop`.
 
 ## 2. Créer l’application Node.js
 

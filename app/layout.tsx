@@ -8,8 +8,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { CartDrawer } from "@/components/cart-drawer";
 
 export const metadata: Metadata = {
-  title: "Aniss Électroménager",
-  description: "Électroménager pour la maison, au meilleur prix.",
+  title: "DZ Shopping",
+  description: "Tout ce dont vous avez besoin, au même endroit.",
 };
 
 import { getSiteSettings } from "@/lib/actions";
@@ -27,7 +27,7 @@ export default async function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <body
         className="antialiased"
-        style={{ '--brand-pink': settings.themeColor === '#F59E0B' ? '#2B0AA8' : settings.themeColor } as React.CSSProperties}
+        style={{ '--brand-pink': ['#F59E0B', '#2B0AA8'].includes(settings.themeColor) ? '#D4A017' : settings.themeColor } as React.CSSProperties}
       >
         <LanguageProvider>
           <CartProvider>

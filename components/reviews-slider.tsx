@@ -48,9 +48,9 @@ export function ReviewsSlider({ reviews, autoPlayInterval = 6000 }: ReviewsSlide
   const reviewText = locale === 'ar' ? review.reviewAr : review.reviewFr;
 
   return (
-    <section className="py-16" style={{ backgroundColor: '#F1E5B4' }}>
+    <section className="border-y border-[#4b3710] bg-[#100d07] py-16">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12" style={{ color: '#383738' }}>
+        <h2 className="mb-12 text-center text-3xl font-bold text-[#f4c84a]">
           {t.reviews.title}
         </h2>
 
@@ -74,12 +74,12 @@ export function ReviewsSlider({ reviews, autoPlayInterval = 6000 }: ReviewsSlide
                 )}
 
                 {/* Review Text */}
-                <p className="text-lg mb-6 italic" style={{ color: '#383738' }}>
+                <p className="mb-6 text-lg italic text-stone-200">
                   "{reviewText}"
                 </p>
 
                 {/* Customer Name */}
-                <p className="font-semibold" style={{ color: '#383738' }}>
+                <p className="font-semibold text-[#f4c84a]">
                   {review.customerName || t.reviews.anonymous}
                 </p>
               </div>

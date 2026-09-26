@@ -104,8 +104,8 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <>
-      <Card className="relative overflow-hidden border-[#dbe2eb] shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
-        <Link href={`/catalog/${product.id}`} className="block relative h-36 overflow-hidden bg-[#f6f7fb] group md:h-48">
+      <Card className="relative overflow-hidden border-[#3a2b0a] bg-[#111] shadow-sm transition-all hover:-translate-y-1 hover:border-[#d4a017] hover:shadow-[0_12px_30px_rgba(212,160,23,.15)]">
+        <Link href={`/catalog/${product.id}`} className="block relative h-36 overflow-hidden bg-[#f5f2e9] group md:h-48">
           <img
             src={product.image}
             alt={name}
@@ -132,18 +132,18 @@ export function ProductCard({ product }: ProductCardProps) {
         </Link>
         <CardContent className="p-2.5 md:p-4">
           <Link href={`/catalog/${product.id}`}>
-            <h3 className="mb-1 text-sm font-bold text-[#082b5b] transition-colors hover:text-[var(--brand-pink)] line-clamp-2 md:mb-2 md:text-xl">
+            <h3 className="mb-1 text-sm font-bold text-[#f8f3e7] transition-colors hover:text-[var(--brand-pink)] line-clamp-2 md:mb-2 md:text-xl">
               {name}
             </h3>
           </Link>
-          <p className="text-xs md:text-sm text-gray-600 mb-2 md:mb-4 line-clamp-2 min-h-[32px] md:min-h-[40px]">{description}</p>
+          <p className="mb-2 min-h-[32px] text-xs text-stone-400 line-clamp-2 md:mb-4 md:min-h-[40px] md:text-sm">{description}</p>
           <p className="text-lg md:text-2xl font-bold" style={{ color: 'var(--brand-pink)' }}>
             {product.price.toFixed(0)} DA
           </p>
         </CardContent>
         <CardFooter className="p-2.5 md:p-4 pt-0 flex flex-col gap-2 md:gap-3">
           {/* Quantity Selector */}
-          <div className="flex items-center w-full gap-1 md:gap-2 bg-gray-50 rounded-lg p-0.5 md:p-1 border">
+          <div className="flex w-full items-center gap-1 rounded-lg border border-[#3a3320] bg-[#1b1b1b] p-0.5 md:gap-2 md:p-1">
             <Button
               variant="ghost"
               size="icon"

@@ -131,7 +131,7 @@ export default function ProductPage() {
             <Button
                 variant="ghost"
                 onClick={() => router.back()}
-                className="mb-6 flex items-center gap-2 text-gray-600 hover:text-[var(--brand-pink)]"
+                className="mb-6 flex items-center gap-2 text-stone-300 hover:text-[var(--brand-pink)]"
             >
                 <ArrowLeft className="h-4 w-4" />
                 {t.common.cancel} {/* Using 'Annuler/Cancel' or back text */}
@@ -139,7 +139,7 @@ export default function ProductPage() {
 
             <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
                 {/* Gallery / Image */}
-                <div className="relative rounded-2xl overflow-hidden shadow-lg bg-white h-fit">
+                <div className="relative h-fit overflow-hidden rounded-2xl border border-[#4b3710] bg-[#f5f2e9] shadow-lg">
                     <img
                         src={product.image}
                         alt={name}
@@ -167,7 +167,7 @@ export default function ProductPage() {
                 {/* Details */}
                 <div className="space-y-6">
                     <div>
-                        <h1 className="text-3xl md:text-4xl font-bold mb-2" style={{ color: '#383738' }}>
+                        <h1 className="mb-2 text-3xl font-bold text-[#f8f3e7] md:text-4xl">
                             {name}
                         </h1>
                         <p className="text-3xl font-bold font-mono" style={{ color: 'var(--brand-pink)' }}>
@@ -175,7 +175,7 @@ export default function ProductPage() {
                         </p>
                     </div>
 
-                    <div className="prose max-w-none text-gray-600">
+                    <div className="prose max-w-none text-stone-300">
                         <p className="whitespace-pre-wrap">{description}</p>
                     </div>
 
@@ -203,12 +203,12 @@ export default function ProductPage() {
 
                         <div>
                             <Label className="mb-2 block">{t.products.quantity}</Label>
-                            <div className="flex items-center w-fit gap-2 bg-gray-50 rounded-lg p-1 border">
+                            <div className="flex w-fit items-center gap-2 rounded-lg border border-[#3a3320] bg-[#1b1b1b] p-1">
                                 <Button
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                    className="h-10 w-10 hover:bg-white hover:shadow-sm"
+                                    className="h-10 w-10 hover:bg-[#2a220f] hover:shadow-sm"
                                 >
                                     -
                                 </Button>
@@ -221,7 +221,7 @@ export default function ProductPage() {
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => setQuantity(quantity + 1)}
-                                    className="h-10 w-10 hover:bg-white hover:shadow-sm"
+                                    className="h-10 w-10 hover:bg-[#2a220f] hover:shadow-sm"
                                 >
                                     +
                                 </Button>
@@ -239,7 +239,7 @@ export default function ProductPage() {
                             </Button>
                         </div>
 
-                        <p className="text-sm text-gray-500 text-center mt-4">
+                        <p className="mt-4 text-center text-sm text-stone-400">
                             Livraison disponible dans toutes les wilayas
                         </p>
                     </div>

@@ -198,11 +198,11 @@ export default function MyOrdersPage() {
 
         <div className="flex items-center gap-3 mb-2">
           <Package className="h-8 w-8" style={{ color: 'var(--brand-pink)' }} />
-          <h1 className="text-3xl font-bold" style={{ color: '#383738' }}>
+          <h1 className="text-3xl font-bold text-[#f4c84a]">
             {t.title}
           </h1>
         </div>
-        <p className="text-gray-600">{t.subtitle}</p>
+        <p className="text-stone-400">{t.subtitle}</p>
       </div>
 
       {/* Phone search for non-authenticated users */}
@@ -217,10 +217,10 @@ export default function MyOrdersPage() {
                 <Phone className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h3 className="font-bold" style={{ color: '#383738' }}>
+                <h3 className="font-bold text-[#f8f3e7]">
                   {t.phoneSearchTitle}
                 </h3>
-                <p className="text-sm text-gray-500">{t.phoneSearchDesc}</p>
+                <p className="text-sm text-stone-400">{t.phoneSearchDesc}</p>
               </div>
             </div>
             <div className="flex gap-2 mt-4">
@@ -268,10 +268,10 @@ export default function MyOrdersPage() {
             <Card>
               <CardContent className="p-12 text-center">
                 <Package className="h-16 w-16 mx-auto mb-4 text-gray-300" />
-                <h3 className="text-xl font-semibold mb-2" style={{ color: '#383738' }}>
+                <h3 className="mb-2 text-xl font-semibold text-[#f8f3e7]">
                   {hasSearched ? t.noOrders : t.noOrdersYet}
                 </h3>
-                <p className="text-gray-600 mb-6">
+                <p className="mb-6 text-stone-400">
                   {hasSearched ? t.noOrdersDesc : t.noOrdersYetDesc}
                 </p>
                 <Button

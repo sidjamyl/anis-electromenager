@@ -67,7 +67,7 @@ export default function CatalogPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8" style={{ color: '#383738' }}>
+      <h1 className="mb-8 text-4xl font-bold text-[#f4c84a]">
         {t.nav.catalog}
       </h1>
 
@@ -90,12 +90,12 @@ export default function CatalogPage() {
           <Button
             variant={selectedCategory === 'ALL' ? 'default' : 'outline'}
             onClick={() => setSelectedCategory('ALL')}
-            style={selectedCategory === 'ALL' ? { backgroundColor: 'var(--brand-pink)', color: 'white' } : {}}
-            className="hover:bg-[var(--brand-pink)] hover:text-white transition-colors"
+            style={selectedCategory === 'ALL' ? { backgroundColor: 'var(--brand-pink)', color: 'black' } : {}}
+            className="hover:bg-[var(--brand-pink)] hover:text-black transition-colors"
           >
             {t.products.allProducts}
           </Button>
-          {categories.map((category) => <Button key={category.id} variant={selectedCategory === category.id ? 'default' : 'outline'} onClick={() => setSelectedCategory(category.id)} style={selectedCategory === category.id ? { backgroundColor: 'var(--brand-pink)', color: 'white' } : {}} className="hover:bg-[var(--brand-pink)] hover:text-white transition-colors">{category.nameFr}</Button>)}
+          {categories.map((category) => <Button key={category.id} variant={selectedCategory === category.id ? 'default' : 'outline'} onClick={() => setSelectedCategory(category.id)} style={selectedCategory === category.id ? { backgroundColor: 'var(--brand-pink)', color: 'black' } : {}} className="hover:bg-[var(--brand-pink)] hover:text-black transition-colors">{category.nameFr}</Button>)}
         </div>
       </div>
 

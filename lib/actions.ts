@@ -10,18 +10,19 @@ export async function getSiteSettings() {
             // Create default settings if not exists
             return await (prisma as any).siteSettings.create({
                 data: {
-                    themeColor: '#2B0AA8',
-                    storeName: 'Aniss Électroménager',
-                    logoUrl: '/aniss-logo.png',
+                    themeColor: '#D4A017',
+                    storeName: 'DZ Shopping',
+                    logoUrl: '/dz-shopping-logo.svg',
                     phone: '+213 000 000 000',
                     adminEmail: 'admin@example.com',
                 },
             });
         }
+        if (settings.storeName === 'Aniss Électroménager') return await (prisma as any).siteSettings.update({ where: { id: settings.id }, data: { themeColor: '#D4A017', storeName: 'DZ Shopping', logoUrl: '/dz-shopping-logo.svg' } });
         return settings;
     } catch (error) {
         console.error('Error fetching site settings:', error);
-        return { themeColor: '#2B0AA8', storeName: 'Aniss Électroménager', logoUrl: '/aniss-logo.png', phone: '+213 000 000 000', adminEmail: 'admin@example.com' };
+        return { themeColor: '#D4A017', storeName: 'DZ Shopping', logoUrl: '/dz-shopping-logo.svg', phone: '+213 000 000 000', adminEmail: 'admin@example.com' };
     }
 }
 

@@ -100,9 +100,9 @@ export default function AdminPage() {
   const [uploadingLogo, setUploadingLogo] = useState(false);
 
   // Settings
-  const [themeColor, setThemeColor] = useState('#2B0AA8');
-  const [storeName, setStoreName] = useState('Aniss Électroménager');
-  const [logoUrl, setLogoUrl] = useState('/aniss-logo.png');
+  const [themeColor, setThemeColor] = useState('#D4A017');
+  const [storeName, setStoreName] = useState('DZ Shopping');
+  const [logoUrl, setLogoUrl] = useState('/dz-shopping-logo.svg');
   const [phone, setPhone] = useState('+213 000 000 000');
   const [adminEmail, setAdminEmail] = useState('');
   const [isSavingSettings, setIsSavingSettings] = useState(false);
@@ -506,8 +506,8 @@ export default function AdminPage() {
       const settings = await getSiteSettings();
       if (settings && settings.themeColor) {
         setThemeColor(settings.themeColor);
-        setStoreName(settings.storeName || 'Aniss Électroménager');
-        setLogoUrl(settings.logoUrl || '/aniss-logo.png');
+        setStoreName(settings.storeName || 'DZ Shopping');
+        setLogoUrl(settings.logoUrl || '/dz-shopping-logo.svg');
         setPhone(settings.phone || '');
         setAdminEmail(settings.adminEmail || '');
       }
@@ -545,7 +545,7 @@ export default function AdminPage() {
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold" style={{ color: '#383738' }}>
+        <h1 className="text-3xl font-bold text-[#f4c84a]">
           Admin Panel
         </h1>
         <Button onClick={handleLogout} variant="outline">

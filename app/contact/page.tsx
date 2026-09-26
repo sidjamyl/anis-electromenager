@@ -46,7 +46,7 @@ export default function ContactPage() {
 
   return (
     <div className="container mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold mb-8 text-center" style={{ color: '#383738' }}>
+      <h1 className="mb-8 text-center text-4xl font-bold text-[#f4c84a]">
         {t.contact.title}
       </h1>
 
@@ -125,30 +125,30 @@ export default function ContactPage() {
               <div className="flex items-start gap-4 mb-4">
                 <Phone className="h-6 w-6 mt-1" style={{ color: 'var(--brand-pink)' }} />
                 <div>
-                  <h3 className="font-semibold mb-1" style={{ color: '#383738' }}>
+                  <h3 className="mb-1 font-semibold text-[#f8f3e7]">
                     {t.contact.phone}
                   </h3>
-                  <p className="text-gray-600">Contactez-nous pour nos disponibilités et nos prix.</p>
+                  <p className="text-stone-400">Contactez-nous pour nos disponibilités et nos prix.</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4 mb-4">
                 <MessageSquare className="h-6 w-6 mt-1" style={{ color: 'var(--brand-pink)' }} />
                 <div>
-                  <h3 className="font-semibold mb-1" style={{ color: '#383738' }}>
+                  <h3 className="mb-1 font-semibold text-[#f8f3e7]">
                     {t.contact.whatsapp}
                   </h3>
-                  <p className="text-gray-600">Réponse rapide par téléphone ou WhatsApp.</p>
+                  <p className="text-stone-400">Réponse rapide par téléphone ou WhatsApp.</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
                 <MapPin className="h-6 w-6 mt-1" style={{ color: 'var(--brand-pink)' }} />
                 <div>
-                  <h3 className="font-semibold mb-1" style={{ color: '#383738' }}>
+                  <h3 className="mb-1 font-semibold text-[#f8f3e7]">
                     {t.contact.address}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-stone-400">
                     {locale === 'ar' ? 'الجزائر العاصمة، الجزائر' : 'Alger, Algérie'}
                   </p>
                 </div>
@@ -156,12 +156,12 @@ export default function ContactPage() {
             </CardContent>
           </Card>
 
-          <Card style={{ backgroundColor: '#F1E5B4' }}>
+          <Card className="border-[#6c5014] bg-[#1b1508]">
             <CardContent className="pt-6">
-              <h3 className="font-semibold mb-3" style={{ color: '#383738' }}>
+              <h3 className="mb-3 font-semibold text-[#f4c84a]">
                 {locale === 'ar' ? 'ساعات العمل' : 'Horaires d\'ouverture'}
               </h3>
-              <div className="space-y-2 text-sm" style={{ color: '#383738' }}>
+              <div className="space-y-2 text-sm text-stone-200">
                 <p>{locale === 'ar' ? 'السبت - الخميس: 8:00 - 18:00' : 'Samedi - Jeudi: 8h00 - 18h00'}</p>
                 <p>{locale === 'ar' ? 'الجمعة: مغلق' : 'Vendredi: Fermé'}</p>
               </div>

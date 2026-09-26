@@ -8,7 +8,7 @@ async function main() {
     prisma.category.upsert({ where: { nameFr: 'Lavage' }, update: {}, create: { nameFr: 'Lavage', nameAr: 'الغسيل' } }),
     prisma.category.upsert({ where: { nameFr: 'Froid' }, update: {}, create: { nameFr: 'Froid', nameAr: 'التبريد' } }),
   ]);
-  await prisma.siteSettings.upsert({ where: { id: 'aniss-settings' }, update: {}, create: { id: 'aniss-settings', themeColor: '#2B0AA8', storeName: 'Aniss Électroménager', logoUrl: '/aniss-logo.png', phone: '+213 000 000 000', adminEmail: 'admin@example.com' } });
+  await prisma.siteSettings.upsert({ where: { id: 'aniss-settings' }, update: {}, create: { id: 'aniss-settings', themeColor: '#D4A017', storeName: 'DZ Shopping', logoUrl: '/dz-shopping-logo.svg', phone: '+213 000 000 000', adminEmail: 'admin@example.com' } });
   const products: [string, string, string, string, number, string, string][] = [
     ['Réfrigérateur', 'ثلاجة', 'Réfrigérateur familial performant.', 'ثلاجة عملية للعائلة.', 85000, froid.id, '/images/products/IMG_0520.WEBP'],
     ['Lave-linge', 'غسالة', 'Lave-linge pour votre quotidien.', 'غسالة للاستخدام اليومي.', 68000, lavage.id, '/images/products/IMG_0522.JPG'],

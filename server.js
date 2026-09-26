@@ -6,5 +6,5 @@ const handle = app.getRequestHandler();
 const port = Number(process.env.PORT || 3000);
 
 app.prepare().then(() => http.createServer(handle).listen(port, '0.0.0.0', () => {
-  console.log(`Aniss Électroménager ready on port ${port}`);
+  console.log(`DZ Shopping ready on port ${port}`);
 }));

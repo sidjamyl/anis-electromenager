@@ -41,10 +41,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-[#070707] px-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl text-center" style={{ color: '#383738' }}>
+          <CardTitle className="text-center text-2xl text-[#f4c84a]">
             Connexion Admin
           </CardTitle>
         </CardHeader>

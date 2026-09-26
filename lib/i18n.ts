@@ -17,8 +17,8 @@ export const translations = {
     },
     // Hero Section
     hero: {
-      title: 'Aniss Électroménager',
-      subtitle: 'Des appareils fiables pour votre maison',
+      title: 'DZ Shopping',
+      subtitle: 'Tout ce dont vous avez besoin, au même endroit',
       viewCatalog: 'Voir le catalogue',
     },
     // Products
@@ -90,8 +90,8 @@ export const translations = {
     },
     // About
     about: {
-      title: 'À propos d’Aniss Électroménager',
-      description: 'Aniss Électroménager vous accompagne pour équiper votre maison avec des produits fiables.',
+      title: 'À propos de DZ Shopping',
+      description: 'DZ Shopping vous accompagne pour équiper votre maison avec des produits fiables.',
     },
     // Footer
     footer: {
@@ -217,8 +217,8 @@ export const translations = {
     },
     // About
     about: {
-      title: 'عن أنيس للأجهزة الكهرومنزلية',
-      description: 'أنيس للأجهزة الكهرومنزلية يرافقك لتجهيز منزلك بمنتجات موثوقة.',
+      title: 'عن DZ Shopping',
+      description: 'DZ Shopping يرافقك لتجهيز منزلك بمنتجات موثوقة.',
     },
     // Footer
     footer: {

@@ -135,15 +135,15 @@ export function OrderTrackingCard({ order, onDownloadPDF }: OrderTrackingCardPro
         <div className="grid md:grid-cols-2 gap-6 mb-4">
           {/* Informations de livraison */}
           <div>
-            <p className="font-semibold mb-3" style={{ color: '#383738' }}>
+            <p className="mb-3 font-semibold text-[#f8f3e7]">
               📍 Livraison
             </p>
-            <div className="space-y-1 text-sm text-gray-700">
+            <div className="space-y-1 text-sm text-stone-300">
               <p>{order.address}</p>
               <p>{order.municipality}, {order.wilaya}</p>
               {order.trackingNumber && (
-                <div className="mt-3 p-2 bg-gray-50 rounded">
-                  <p className="font-semibold text-xs text-gray-600">Numéro de suivi</p>
+                <div className="mt-3 rounded bg-[#1b1b1b] p-2">
+                  <p className="text-xs font-semibold text-stone-400">Numéro de suivi</p>
                   <p className="font-mono text-sm" style={{ color: 'var(--brand-pink)' }}>
                     {order.trackingNumber}
                   </p>
@@ -154,16 +154,16 @@ export function OrderTrackingCard({ order, onDownloadPDF }: OrderTrackingCardPro
 
           {/* Résumé financier */}
           <div>
-            <p className="font-semibold mb-3" style={{ color: '#383738' }}>
+            <p className="mb-3 font-semibold text-[#f8f3e7]">
               💰 Résumé
             </p>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-600">Sous-total:</span>
+                <span className="text-stone-400">Sous-total:</span>
                 <span className="font-medium">{order.subtotal.toFixed(0)} DA</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Livraison:</span>
+                <span className="text-stone-400">Livraison:</span>
                 <span className="font-medium">{order.shippingCost.toFixed(0)} DA</span>
               </div>
               <div className="flex justify-between pt-2 border-t font-bold text-base">
@@ -178,14 +178,14 @@ export function OrderTrackingCard({ order, onDownloadPDF }: OrderTrackingCardPro
 
         {/* Liste des produits */}
         <div className="border-t pt-4">
-          <p className="font-semibold mb-3" style={{ color: '#383738' }}>
+          <p className="mb-3 font-semibold text-[#f8f3e7]">
             📦 Produits commandés
           </p>
           <div className="space-y-2">
             {order.items.map((item) => (
               <div
                 key={item.id}
-                className="flex justify-between items-center p-3 bg-gray-50 rounded"
+                className="flex items-center justify-between rounded bg-[#1b1b1b] p-3"
               >
                 <div className="flex-1">
                   <p className="font-medium text-sm">

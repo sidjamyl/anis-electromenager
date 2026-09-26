@@ -15,9 +15,9 @@ const HERO_SLIDES = [
   {
     id: '1',
     image: '/aniss-hero-v2.png',
-    titleFr: 'Le bon équipement, pour une maison qui vous ressemble.',
+    titleFr: 'Tout ce dont vous avez besoin, au même endroit.',
     titleAr: 'أجهزة منزلية تجعل حياتك أسهل',
-    subtitleFr: 'Des appareils fiables, choisis pour votre quotidien.',
+    subtitleFr: 'Électroménager, cuisine et maison : commandez simplement.',
     subtitleAr: 'اكتشف أجهزتنا الموثوقة لمنزلك.',
   },
   { id: '2', image: '/aniss-kitchen-v2.png', titleFr: 'Cuisine, froid, lavage : tout pour s’équiper.', titleAr: 'المطبخ والتبريد والغسيل: كل ما تحتاجه.', subtitleFr: 'Découvrez notre sélection électroménager.', subtitleAr: 'اكتشف تشكيلتنا من الأجهزة المنزلية.' },
@@ -82,8 +82,8 @@ export default function Home() {
 
       {/* Popular Products */}
       <section className="container mx-auto px-4 py-16">
-        <p className="mb-2 text-center text-xs font-extrabold uppercase tracking-[0.18em] text-[#2b0aa8]">Notre sélection</p>
-        <h2 className="text-3xl font-extrabold text-center mb-8" style={{ color: '#082b5b' }}>
+        <p className="mb-2 text-center text-xs font-extrabold uppercase tracking-[0.18em] text-[#f4c84a]">Notre sélection</p>
+        <h2 className="mb-8 text-center text-3xl font-extrabold text-[#f8f3e7]">
           {t.products.popular}
         </h2>
 
@@ -106,12 +106,12 @@ export default function Home() {
             <Button
               variant={selectedCategory === 'ALL' ? 'default' : 'outline'}
               onClick={() => setSelectedCategory('ALL')}
-              style={selectedCategory === 'ALL' ? { backgroundColor: 'var(--brand-pink)', color: 'white' } : {}}
-              className="hover:bg-[var(--brand-pink)] hover:text-white transition-colors"
+              style={selectedCategory === 'ALL' ? { backgroundColor: 'var(--brand-pink)', color: 'black' } : {}}
+              className="hover:bg-[var(--brand-pink)] hover:text-black transition-colors"
             >
               {t.products.allProducts}
             </Button>
-            {categories.map((category) => <Button key={category.id} variant={selectedCategory === category.id ? 'default' : 'outline'} onClick={() => setSelectedCategory(category.id)} style={selectedCategory === category.id ? { backgroundColor: 'var(--brand-pink)', color: 'white' } : {}} className="hover:bg-[var(--brand-pink)] hover:text-white transition-colors">{category.nameFr}</Button>)}
+            {categories.map((category) => <Button key={category.id} variant={selectedCategory === category.id ? 'default' : 'outline'} onClick={() => setSelectedCategory(category.id)} style={selectedCategory === category.id ? { backgroundColor: 'var(--brand-pink)', color: 'black' } : {}} className="hover:bg-[var(--brand-pink)] hover:text-black transition-colors">{category.nameFr}</Button>)}
           </div>
         </div>
 

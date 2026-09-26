@@ -201,9 +201,9 @@ model HeroSlide {
 
 model SiteSettings {
   id          String   @id @default(cuid())
-  themeColor  String   @default("#F59E0B")
-  storeName   String   @default("Aniss Électroménager")
-  logoUrl     String   @default("/aniss-logo.png")
+  themeColor  String   @default("#D4A017")
+  storeName   String   @default("DZ Shopping")
+  logoUrl     String   @default("/dz-shopping-logo.svg")
   phone       String   @default("+213 000 000 000")
   adminEmail  String   @default("admin@example.com")
   updatedAt   DateTime @updatedAt

@@ -8,13 +8,13 @@ export default function AboutPage() {
   return (
     <div className="container mx-auto px-4 py-16">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-center" style={{ color: '#383738' }}>
+        <h1 className="mb-8 text-center text-4xl font-bold text-[#f4c84a]">
           {t.about.title}
         </h1>
 
         <div className="prose max-w-none">
-          <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-            <p className="text-lg mb-6" style={{ color: '#383738' }}>
+          <div className="mb-8 rounded-lg border border-[#4b3710] bg-[#111] p-8 shadow-lg">
+            <p className="mb-6 text-lg text-stone-200">
               {t.about.description}
             </p>
 
@@ -23,7 +23,7 @@ export default function AboutPage() {
                 <h2 className="text-2xl font-semibold mb-4" style={{ color: 'var(--brand-pink)' }}>
                   {locale === 'ar' ? 'مهمتنا' : 'Notre Mission'}
                 </h2>
-                <p style={{ color: '#383738' }}>
+                <p className="text-stone-300">
                   {locale === 'ar'
                     ? 'نسعى لتقديم أجهزة منزلية موثوقة بأسعار تنافسية وخدمة قريبة من عملائنا.'
                     : 'Nous sélectionnons des appareils fiables, à prix juste, avec un accompagnement simple et proche de nos clients.'}
@@ -34,7 +34,7 @@ export default function AboutPage() {
                 <h2 className="text-2xl font-semibold mb-4" style={{ color: 'var(--brand-pink)' }}>
                   {locale === 'ar' ? 'قيمنا' : 'Nos Valeurs'}
                 </h2>
-                <ul className="space-y-2" style={{ color: '#383738' }}>
+                <ul className="space-y-2 text-stone-300">
                   <li>✓ {locale === 'ar' ? 'الجودة أولاً' : 'Qualité avant tout'}</li>
                   <li>✓ {locale === 'ar' ? 'خدمة عملاء ممتازة' : 'Service client excellent'}</li>
                   <li>✓ {locale === 'ar' ? 'توصيل سريع وآمن' : 'Livraison rapide et sûre'}</li>
