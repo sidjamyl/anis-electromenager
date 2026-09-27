@@ -107,7 +107,7 @@ export default function ProductPage() {
             <div className="container mx-auto px-4 py-16 text-center">
                 <p>{t.products.noProducts}</p>
                 <Button onClick={() => router.push('/')} className="mt-4">
-                    Retour à l'accueil
+                    {locale === 'ar' ? 'العودة إلى الرئيسية' : 'Retour à l’accueil'}
                 </Button>
             </div>
         );

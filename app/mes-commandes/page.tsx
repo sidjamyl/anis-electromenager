@@ -91,7 +91,7 @@ export default function MyOrdersPage() {
       setOrders(data);
     } catch (error) {
       console.error('Error fetching orders:', error);
-      toast.error(locale === 'ar' ? 'خطأ في تحميل الطلبات' : 'Erreur lors du chargement des commandes');
+      toast.error(locale === 'ar' ? 'تعذّر تحميل الطلبات. حاول مرة أخرى.' : 'Erreur lors du chargement des commandes');
     } finally {
       setIsLoading(false);
     }
@@ -102,7 +102,7 @@ export default function MyOrdersPage() {
     if (!trimmed || trimmed.length < 9) {
       toast.error(
         locale === 'ar'
-          ? 'يرجى إدخال رقم هاتف صحيح'
+          ? 'أدخل رقم هاتف صحيحًا للمتابعة.'
           : 'Veuillez entrer un numéro de téléphone valide'
       );
       return;
@@ -117,7 +117,7 @@ export default function MyOrdersPage() {
       setOrders(data);
     } catch (error) {
       console.error('Error searching orders:', error);
-      toast.error(locale === 'ar' ? 'خطأ في البحث' : 'Erreur lors de la recherche');
+      toast.error(locale === 'ar' ? 'تعذّر البحث عن الطلبات. حاول مرة أخرى.' : 'Erreur lors de la recherche');
     } finally {
       setIsSearching(false);
     }
@@ -152,19 +152,19 @@ export default function MyOrdersPage() {
     },
     ar: {
       title: 'طلباتي',
-      subtitle: 'استشر وتتبع طلباتك',
-      noOrders: 'لم يتم العثور على طلبات',
-      noOrdersDesc: 'لم يتم العثور على أي طلبات.',
-      noOrdersYet: 'ليس لديك طلبات بعد',
-      noOrdersYetDesc: 'ستظهر طلباتك هنا بمجرد إجراء عملية شراء.',
-      backToShop: 'العودة إلى المتجر',
-      back: 'رجوع',
-      phoneSearchTitle: 'ابحث عن طلباتك',
-      phoneSearchDesc: 'أدخل رقم الهاتف المستخدم عند الطلب',
+      subtitle: 'تابع حالة طلباتك بسهولة',
+      noOrders: 'لم نجد طلبات بهذا الرقم',
+      noOrdersDesc: 'تأكد من رقم الهاتف ثم حاول مرة أخرى.',
+      noOrdersYet: 'لا توجد طلبات حتى الآن',
+      noOrdersYetDesc: 'ستظهر طلباتك هنا بعد إتمام أول طلب.',
+      backToShop: 'تسوّق الآن',
+      back: 'العودة',
+      phoneSearchTitle: 'اعثر على طلبك',
+      phoneSearchDesc: 'أدخل رقم الهاتف الذي استخدمته عند الطلب',
       phonePlaceholder: 'مثال: 0540153721',
-      search: 'بحث',
+      search: 'ابحث عن الطلبات',
       searching: 'جاري البحث...',
-      orLogin: 'أو سجل الدخول',
+      orLogin: 'أو سجّل الدخول',
     },
   };
 
@@ -176,7 +176,7 @@ export default function MyOrdersPage() {
         <div className="flex flex-col items-center justify-center min-h-[400px]">
           <Package className="h-16 w-16 animate-pulse" style={{ color: 'var(--brand-pink)' }} />
           <p className="mt-4 text-gray-600">
-            {locale === 'ar' ? 'جاري تحميل طلباتك...' : 'Chargement de vos commandes...'}
+            {locale === 'ar' ? 'جارٍ تحميل طلباتك…' : 'Chargement de vos commandes...'}
           </p>
         </div>
       </div>

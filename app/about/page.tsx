@@ -25,7 +25,7 @@ export default function AboutPage() {
                 </h2>
                 <p className="text-stone-300">
                   {locale === 'ar'
-                    ? 'نسعى لتقديم أجهزة منزلية موثوقة بأسعار تنافسية وخدمة قريبة من عملائنا.'
+                    ? 'نختار منتجات موثوقة بأسعار مناسبة، ونبقى قريبين منك من الطلب إلى التوصيل.'
                     : 'Nous sélectionnons des appareils fiables, à prix juste, avec un accompagnement simple et proche de nos clients.'}
                 </p>
               </div>
@@ -35,10 +35,10 @@ export default function AboutPage() {
                   {locale === 'ar' ? 'قيمنا' : 'Nos Valeurs'}
                 </h2>
                 <ul className="space-y-2 text-stone-300">
-                  <li>✓ {locale === 'ar' ? 'الجودة أولاً' : 'Qualité avant tout'}</li>
-                  <li>✓ {locale === 'ar' ? 'خدمة عملاء ممتازة' : 'Service client excellent'}</li>
-                  <li>✓ {locale === 'ar' ? 'توصيل سريع وآمن' : 'Livraison rapide et sûre'}</li>
-                  <li>✓ {locale === 'ar' ? 'أسعار تنافسية' : 'Prix compétitifs'}</li>
+                  <li>✓ {locale === 'ar' ? 'منتجات موثوقة' : 'Qualité avant tout'}</li>
+                  <li>✓ {locale === 'ar' ? 'خدمة قريبة منك' : 'Service client excellent'}</li>
+                  <li>✓ {locale === 'ar' ? 'توصيل إلى كل الولايات' : 'Livraison rapide et sûre'}</li>
+                  <li>✓ {locale === 'ar' ? 'أسعار مناسبة' : 'Prix compétitifs'}</li>
                 </ul>
               </div>
             </div>
@@ -47,7 +47,7 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center p-6 rounded-lg" style={{ backgroundColor: 'var(--brand-pink)' }}>
               <div className="text-4xl font-bold text-white mb-2">500+</div>
-              <div className="text-white">{locale === 'ar' ? 'منتج' : 'Produits'}</div>
+              <div className="text-white">{locale === 'ar' ? 'منتجات متوفرة' : 'Produits'}</div>
             </div>
 
             <div className="text-center p-6 rounded-lg" style={{ backgroundColor: 'var(--brand-pink)' }}>

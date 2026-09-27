@@ -16,11 +16,11 @@ const HERO_SLIDES = [
     id: '1',
     image: '/aniss-hero-v2.png',
     titleFr: 'Tout ce dont vous avez besoin, au même endroit.',
-    titleAr: 'أجهزة منزلية تجعل حياتك أسهل',
+    titleAr: 'كل ما تحتاجه لمنزلك في مكان واحد',
     subtitleFr: 'Électroménager, cuisine et maison : commandez simplement.',
-    subtitleAr: 'اكتشف أجهزتنا الموثوقة لمنزلك.',
+    subtitleAr: 'منتجات مختارة للمنزل والمطبخ، بطلب بسيط.',
   },
-  { id: '2', image: '/aniss-kitchen-v2.png', titleFr: 'Cuisine, froid, lavage : tout pour s’équiper.', titleAr: 'المطبخ والتبريد والغسيل: كل ما تحتاجه.', subtitleFr: 'Découvrez notre sélection électroménager.', subtitleAr: 'اكتشف تشكيلتنا من الأجهزة المنزلية.' },
+  { id: '2', image: '/aniss-kitchen-v2.png', titleFr: 'Cuisine, froid, lavage : tout pour s’équiper.', titleAr: 'للمطبخ والتنظيف والبيت', subtitleFr: 'Découvrez notre sélection électroménager.', subtitleAr: 'تصفّح تشكيلتنا واختر ما يناسبك.' },
 ];
 
 export default function Home() {

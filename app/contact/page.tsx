@@ -128,7 +128,7 @@ export default function ContactPage() {
                   <h3 className="mb-1 font-semibold text-[#f8f3e7]">
                     {t.contact.phone}
                   </h3>
-                  <p className="text-stone-400">Contactez-nous pour nos disponibilités et nos prix.</p>
+                  <p className="text-stone-400">{locale === 'ar' ? 'تواصل معنا لمعرفة التوفر والأسعار.' : 'Contactez-nous pour nos disponibilités et nos prix.'}</p>
                 </div>
               </div>
 
@@ -138,7 +138,7 @@ export default function ContactPage() {
                   <h3 className="mb-1 font-semibold text-[#f8f3e7]">
                     {t.contact.whatsapp}
                   </h3>
-                  <p className="text-stone-400">Réponse rapide par téléphone ou WhatsApp.</p>
+                  <p className="text-stone-400">{locale === 'ar' ? 'نرد عليك سريعًا عبر الهاتف أو واتساب.' : 'Réponse rapide par téléphone ou WhatsApp.'}</p>
                 </div>
               </div>
 

@@ -135,7 +135,7 @@ export const translations = {
     // Navigation
     nav: {
       home: 'الرئيسية',
-      catalog: 'القائمة الرئيسية',
+      catalog: 'المنتجات',
       about: 'من نحن',
       cart: 'السلة',
       contact: 'اتصل بنا',
@@ -144,16 +144,16 @@ export const translations = {
     },
     // Hero Section
     hero: {
-      title: 'أنيس للأجهزة الكهرومنزلية',
-      subtitle: 'أجهزة موثوقة لمنزلك',
-      viewCatalog: 'عرض القائمة الرئيسية',
+      title: 'DZ Shopping',
+      subtitle: 'كل ما تحتاجه لمنزلك في مكان واحد',
+      viewCatalog: 'تصفّح المنتجات',
     },
     // Products
     products: {
-      popular: 'المنتجات الأكثر شعبية',
+      popular: 'الأكثر طلبًا',
       addToCart: 'أضف إلى السلة',
       orderNow: 'اطلب الآن',
-      food: 'منتج غذائي',
+      food: 'للمنزل',
       packaging: 'أجهزة كهرومنزلية',
       allProducts: 'جميع المنتجات',
       searchPlaceholder: 'ابحث عن منتج...',
@@ -165,23 +165,23 @@ export const translations = {
       selectVariant: 'اختر خيارًا',
       quantity: 'الكمية',
       price: 'السعر',
-      new: 'جديد !',
+      new: 'جديد',
     },
     // Cart
     cart: {
-      title: 'سلتي',
+      title: 'سلة التسوق',
       empty: 'سلتك فارغة',
       subtotal: 'المجموع الفرعي',
       shipping: 'سعر التوصيل',
-      total: 'المجموع ',
+      total: 'الإجمالي',
       remove: 'إزالة',
       checkout: 'إتمام الطلب',
-      continueToPayment: 'متابعة',
-      fillInfo: 'يرجى ملء معلوماتك قبل إتمام الطلب.',
+      continueToPayment: 'متابعة الطلب',
+      fillInfo: 'أدخل بيانات التوصيل لإرسال طلبك.',
       continueShopping: 'متابعة التسوق',
       yourCart: 'سلة التسوق',
-      items: 'منتج(ات)',
-      orderSuccess: 'تم إرسال طلبك بنجاح! سنتصل بك قريباً',
+      items: 'منتجات',
+      orderSuccess: 'تم إرسال طلبك. سنتواصل معك قريبًا لتأكيده.',
     },
     // Customer Info
     customer: {
@@ -196,7 +196,7 @@ export const translations = {
       selectMunicipality: 'اختر البلدية',
       deliveryType: 'نوع التوصيل',
       home: 'التوصيل للمنزل',
-      stopdesk: 'مكتب',
+      stopdesk: 'نقطة استلام',
     },
     // Reviews
     reviews: {
@@ -213,12 +213,12 @@ export const translations = {
       send: 'إرسال',
       whatsapp: 'واتساب',
       address: 'العنوان',
-      success: 'تم إرسال الرسالة بنجاح!',
+      success: 'تم إرسال رسالتك. سنرد عليك قريبًا.',
     },
     // About
     about: {
       title: 'عن DZ Shopping',
-      description: 'DZ Shopping يرافقك لتجهيز منزلك بمنتجات موثوقة.',
+      description: 'نساعدك في تجهيز منزلك بمنتجات موثوقة وأسعار مناسبة.',
     },
     // Footer
     footer: {
@@ -235,10 +235,10 @@ export const translations = {
       cancel: 'إلغاء',
       confirmOrder: 'تأكيد هذا الطلب؟',
       cancelOrder: 'إلغاء هذا الطلب؟',
-      confirmMessage: 'سيتم تأكيد الطلب.',
-      cancelMessage: 'سيتم إلغاء الطلب نهائيًا.',
-      yes: 'نعم',
-      no: 'لا',
+      confirmMessage: 'سيُؤكَّد الطلب.',
+      cancelMessage: 'سيُلغى الطلب نهائيًا.',
+      yes: 'تأكيد',
+      no: 'إلغاء',
       status: {
         DRAFT: 'مسودة',
         CONFIRMED: 'مؤكد',
@@ -249,8 +249,8 @@ export const translations = {
     // Common
     common: {
       loading: 'جاري التحميل...',
-      error: 'حدث خطأ',
-      success: 'نجح',
+      error: 'تعذّر إتمام العملية. حاول مرة أخرى.',
+      success: 'تم بنجاح',
       cancel: 'إلغاء',
       save: 'حفظ',
       edit: 'تعديل',
