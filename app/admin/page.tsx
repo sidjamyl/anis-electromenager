@@ -324,8 +324,9 @@ export default function AdminPage() {
     formData.append('file', file);
     formData.append('kind', kind);
     const response = await fetch('/api/upload', { method: 'POST', body: formData });
-    if (!response.ok) throw new Error('Erreur lors de l\'upload');
-    return (await response.json()).url as string;
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Erreur lors de l\'upload');
+    return data.url as string;
   };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -20,6 +20,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Accès refusé' }, { status: 403 });
     }
 
+    const missing = ['CLOUDINARY_CLOUD_NAME', 'CLOUDINARY_API_KEY', 'CLOUDINARY_API_SECRET'].filter((name) => !process.env[name]);
+    if (missing.length) return NextResponse.json({ error: `Configuration Cloudinary incomplète : ${missing.join(', ')}` }, { status: 503 });
+
     // Récupérer le fichier
     const formData = await request.formData();
     const file = formData.get('file') as File;
@@ -56,7 +59,8 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Upload error:', error);
-    return NextResponse.json({ error: 'Erreur lors de l\'upload' }, { status: 500 });
+    const message = error instanceof Error ? error.message : '';
+    return NextResponse.json({ error: message ? `Cloudinary a refusé l’upload : ${message}` : 'Cloudinary a refusé l’upload.' }, { status: 502 });
   }
 }
 
