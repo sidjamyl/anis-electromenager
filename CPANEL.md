@@ -27,11 +27,12 @@ npm ci --ignore-scripts
 npx prisma generate --schema prisma/schema.mysql.prisma
 npx prisma db push --schema prisma/schema.mysql.prisma
 npm run db:seed
+npx tsx prisma/seed-admin.ts
 npm run build
 ```
 
-Redémarrez ensuite l’application depuis **Setup Node.js App**. Pour une mise à jour ultérieure : `git pull`, puis les trois dernières commandes ci-dessus et redémarrez.
+Redémarrez ensuite l’application depuis **Setup Node.js App**. `seed-admin.ts` crée le compte administrateur initial ; changez ensuite son mot de passe. Pour une mise à jour ultérieure : `git pull`, `npx prisma generate --schema prisma/schema.mysql.prisma`, `npx prisma db push --schema prisma/schema.mysql.prisma`, `npm run build`, puis redémarrez.
 
 ## Variables nécessaires
 
-`DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, les 6 variables e-mail et les 3 variables Cloudinary sont obligatoires. Gardez les secrets seulement dans cPanel, jamais dans GitHub.
+`DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, les 6 variables e-mail et les 3 variables Cloudinary sont obligatoires. Ajoutez `BETTER_AUTH_TRUSTED_ORIGINS=https://votre-domaine.com` si votre hébergeur utilise plusieurs domaines. Gardez les secrets seulement dans cPanel, jamais dans GitHub.
