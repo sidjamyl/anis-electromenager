@@ -1,5 +1,8 @@
 import { PrismaClient } from '@prisma/client';
+import { loadEnvFile } from 'node:process';
 import { auth } from '@/lib/auth';
+
+try { loadEnvFile(); } catch {}
 
 const prisma = new PrismaClient();
 

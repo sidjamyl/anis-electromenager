@@ -1,38 +1,49 @@
-# Déploiement cPanel avec MySQL
+# Déploiement Octenium cPanel sans terminal
 
-Cette version utilise SQLite sur Dokploy. Pour cPanel, utilisez le schéma MySQL fourni : il n’y a aucune donnée à copier automatiquement entre les deux bases.
+## Prérequis obligatoire
 
-## 1. Créer la base
+Dans **cPanel → Setup Node.js App**, le menu de version doit proposer **Node.js 20 ou 22**. Cette application utilise Next.js 16 et ne fonctionne pas avec Node.js 10 ou moins. Si Octenium ne propose que Node.js 6 à 10, contactez leur support pour Node.js 20+ ou gardez le déploiement Dokploy.
 
-Dans **cPanel → MySQL Databases**, créez une base et un utilisateur, puis donnez à cet utilisateur **ALL PRIVILEGES** sur la base. Notez les noms complets ajoutés par cPanel, par exemple `cpuser_dzshop` et `cpuser_shop`.
+## 1. Mettre le code sur cPanel
 
-## 2. Créer l’application Node.js
+Dans **Git Version Control**, créez un dépôt depuis `https://github.com/sidjamyl/anis-electromenager.git`, avec le chemin `anis-electromenager`.
 
-Dans **Setup Node.js App**, choisissez Node.js 20 ou plus, le dossier du projet comme *Application root*, `server.js` comme *Application startup file* et votre domaine comme URL. Ne placez jamais `.env` dans `public_html`.
+Si le menu Git n'existe pas : téléchargez le ZIP GitHub, chargez-le dans le **File Manager**, puis utilisez **Extract**. Le dossier final doit contenir directement `package.json` et `server.js`; ne le placez pas dans `public_html`.
 
-Copiez `.env.mysql.example` vers `.env` dans la racine du projet, puis remplacez toutes les valeurs. La chaîne MySQL doit être :
+## 2. Créer la base
+
+Dans **MySQL Database Wizard**, créez la base et l'utilisateur, puis cochez **ALL PRIVILEGES**. Pour ce compte :
 
 ```env
-DATABASE_URL="mysql://UTILISATEUR:MOT_DE_PASSE@localhost:3306/NOM_BASE"
+DATABASE_URL="mysql://kvcccvwd_dzshop:VOTRE_MOT_DE_PASSE_MYSQL@localhost:3306/kvcccvwd_dzshopping"
 ```
 
-Encodez les caractères spéciaux du mot de passe dans cette URL (`@` devient `%40`, `#` devient `%23`, `/` devient `%2F`).
+## 3. Créer `.env`
 
-## 3. Installer et initialiser
+Dans le **File Manager**, ouvrez `anis-electromenager`, activez **Show Hidden Files**, puis créez `.env`. Collez vos valeurs de production. Les deux URLs doivent utiliser votre domaine réel, par exemple :
 
-Ouvrez le terminal cPanel dans le dossier du projet et lancez une seule fois :
-
-```bash
-npm ci --ignore-scripts
-npx prisma generate --schema prisma/schema.mysql.prisma
-npx prisma db push --schema prisma/schema.mysql.prisma
-npm run db:seed
-npx tsx prisma/seed-admin.ts
-npm run build
+```env
+NODE_ENV=production
+BETTER_AUTH_URL="https://dz-shopping.com"
+BETTER_AUTH_TRUSTED_ORIGINS="https://dz-shopping.com,https://www.dz-shopping.com"
 ```
 
-Redémarrez ensuite l’application depuis **Setup Node.js App**. `seed-admin.ts` crée le compte administrateur initial ; changez ensuite son mot de passe. Pour une mise à jour ultérieure : `git pull`, `npx prisma generate --schema prisma/schema.mysql.prisma`, `npx prisma db push --schema prisma/schema.mysql.prisma`, `npm run build`, puis redémarrez.
+Ajoutez aussi `DATABASE_URL`, `BETTER_AUTH_SECRET`, les six variables SMTP et les trois variables Cloudinary. Ne mettez pas `PORT`.
 
-## Variables nécessaires
+## 4. Créer l'application
 
-`DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, les 6 variables e-mail et les 3 variables Cloudinary sont obligatoires. Ajoutez `BETTER_AUTH_TRUSTED_ORIGINS=https://votre-domaine.com` si votre hébergeur utilise plusieurs domaines. Gardez les secrets seulement dans cPanel, jamais dans GitHub.
+Dans **Setup Node.js App → Create Application** :
+
+- Node.js : **22** (ou 20)
+- Mode : **Production**
+- Application root : `anis-electromenager`
+- Application URL : votre domaine
+- Application startup file : `server.js`
+
+Cliquez **Create**, puis **Run NPM Install**. Cette unique action installe les dépendances, crée les tables MySQL, ajoute les données initiales, crée l'administrateur et compile le site. Attendez la fin sans fermer la page, puis cliquez **Start App** ou **Restart**.
+
+## 5. Vérifier
+
+Dans **phpMyAdmin**, ouvrez `kvcccvwd_dzshopping` : les tables `user`, `product`, `category` et `site_settings` doivent exister. Ouvrez ensuite votre domaine, connectez-vous avec `admin@aniss-electromenager.com` et le mot de passe initial `admin123`, puis changez-le immédiatement.
+
+Après une mise à jour Git, cliquez **Pull or Deploy** dans Git Version Control, puis **Run NPM Install** et **Restart** dans Setup Node.js App.
